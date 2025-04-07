@@ -9,3 +9,7 @@ Oliver Anderzén
 Simon Victor
 Simon Bergström
 Gustav Hartwig
+
+# Project Scope
+
+A webapp which is made to give information regarding the efficeny and costeffectiveness targeted for the common man. 
