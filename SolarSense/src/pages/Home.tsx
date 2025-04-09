@@ -4,9 +4,9 @@ import HomeCard from '../components/HomeCard'; // Import HomeCard
 function Home() {
   return (
     <div>
-      <Navbar />
+      <Navbar /> {/* Add Navbar */}
       <div className="container mt-5 d-flex justify-content-center">
-        <HomeCard />
+        <HomeCard /> {/* Add Homecard */}
       </div>
     </div>
   );

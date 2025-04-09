@@ -1,3 +1,4 @@
+//Navbar component
 import { NavLink } from "react-router-dom"; // Import NavLink for active state
 
 function Navbar() {
@@ -5,14 +6,14 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">SolarSense</NavLink> {/* Use NavLink for branding */}
-        <button
+        <button 
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
         >
           <span className="navbar-toggler-icon" />
-        </button>
+        </button> {/* Toggler for mobile view */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
@@ -23,7 +24,7 @@ function Navbar() {
               >
                 Home
               </NavLink>
-            </li>
+            </li>{/* Home Button */}
             <li className="nav-item">
               <NavLink
                 className="nav-link"
@@ -31,7 +32,7 @@ function Navbar() {
               >
                 Calculator
               </NavLink>
-            </li>
+            </li> {/* Calculator button */}
             <li className="nav-item">
               <NavLink
                 className="nav-link"
@@ -39,7 +40,7 @@ function Navbar() {
               >
                 Facts
               </NavLink>
-            </li>
+            </li> {/* Facts Button */}
             <li className="nav-item">
               <NavLink
                 className="nav-link"
@@ -48,6 +49,7 @@ function Navbar() {
                 About
               </NavLink>
             </li>
+            {/* About button*/}
           </ul>
         </div>
       </div>
