@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 type CardProps = {
   image: string;
@@ -15,12 +16,11 @@ function Card({ image, title, text, buttonText, buttonLink }: CardProps) {
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{text}</p>
-        <a href={buttonLink} className="btn btn-primary">
-          {buttonText}
-        </a>
+        <Link to={buttonLink} className="btn btn-primary">{buttonText}</Link>
       </div>
     </div>
   );
 }
 
 export default Card;
+

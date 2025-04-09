@@ -11,7 +11,7 @@ function HomeCard(){
     You can also vist our fact page to learn more about solar power and the
     importance of it for UN Sutainability Goal number 7, afforadble and clean energy."
     buttonText="To Solar Calculator"
-    buttonLink="#"
+    buttonLink="/Calculator"
   />
 }
 
