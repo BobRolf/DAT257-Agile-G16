@@ -14,7 +14,9 @@ function Card({ image, title, text, buttonText, buttonLink }: CardProps) {
       <img src={image} className="card-img-top" alt={title} /> 
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
-        <p className="card-text">{text}</p>
+        <p className="card-text" style={{ whiteSpace: 'pre-line' }}>
+          {text}
+        </p>
         <Link to={buttonLink} className="btn btn-primary">{buttonText}</Link>
       </div>
     </div>
