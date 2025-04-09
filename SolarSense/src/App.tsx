@@ -1,8 +1,8 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Facts from './pages/Facts';
-import Calculator from './pages/Calculator';
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Facts from "./pages/Facts";
+import Calculator from "./pages/Calculator";
 
 function App() {
   return (
