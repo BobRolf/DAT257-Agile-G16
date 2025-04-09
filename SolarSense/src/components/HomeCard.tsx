@@ -1,4 +1,5 @@
 import Card from './Card'
+//The card that displays on the home page
 
 function HomeCard(){
     return <Card
