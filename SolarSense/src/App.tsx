@@ -16,19 +16,25 @@ function App() {
 
   return (
     <>
-      {/* Get API-key from environment variable*/}
       <div>
         <Title></Title>
       </div>
       <div>
         <Autocomplete
-          apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+          apiKey={
+            import.meta.env.VITE_GOOGLE_MAPS_API_KEY //get API key from enviroment variable
+          }
           onPlaceSelected={(place) => {
-            console.log(place);
+            //Get coordinates from selected address
+            if (place?.geometry?.location) {
+              const lat = place.geometry.location.lat();
+              const lng = place.geometry.location.lng();
+              console.log("Lat:", lat, "Lng:", lng);
+            }
           }}
           options={{
-            types: ["address"], // 🏡 Endast adresser (inte företag/städer)
-            componentRestrictions: { country: "se" }, // 🇸🇪 Bara Sverige (valfritt)
+            types: ["address"], //only show addresses
+            componentRestrictions: { country: "se" }, //only show swedish addresses
           }}
         ></Autocomplete>
       </div>
