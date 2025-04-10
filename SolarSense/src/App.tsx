@@ -1,6 +1,7 @@
 "use client";
 
 import Title from "./components/Title";
+import Autocomplete from "react-google-autocomplete";
 import {
   //Tools from google api lmao
   APIProvider,
@@ -15,18 +16,22 @@ function App() {
 
   return (
     <>
-      <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-        {" "}
-        {/* Get API-key from environment variable*/}
-        <div>
-          <Title></Title>
-        </div>
-        {/* EXAMPLE MAP CODE
-        <div style={{ height: "100vh", width: "100%" }}>
-          <Map zoom={9} center={position}></Map>
-        </div>
-        */}
-      </APIProvider>
+      {/* Get API-key from environment variable*/}
+      <div>
+        <Title></Title>
+      </div>
+      <div>
+        <Autocomplete
+          apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+          onPlaceSelected={(place) => {
+            console.log(place);
+          }}
+          options={{
+            types: ["address"], // 🏡 Endast adresser (inte företag/städer)
+            componentRestrictions: { country: "se" }, // 🇸🇪 Bara Sverige (valfritt)
+          }}
+        ></Autocomplete>
+      </div>
     </>
   );
 }
