@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-
+import AddressFinder from "../components/AddressFinder"; // Importing the AddressFinder component
 const Calculator: React.FC = () => {
   const [CoordinateValue, setCoordinateValue] = useState<string | "">("");
   const [squareMeterValue, setsquareMeterValue] = useState<number | "">("");
@@ -25,6 +25,7 @@ const Calculator: React.FC = () => {
         <Navbar />
         <h1>Calculator</h1>
         <p>This is the Calculator page.</p>
+        <AddressFinder />
         <div className="form-group">
           <label htmlFor="CoordinateValue">
             Please insert your Coordinates:
