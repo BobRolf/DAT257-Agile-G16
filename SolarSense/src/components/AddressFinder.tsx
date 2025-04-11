@@ -1,9 +1,6 @@
 import Autocomplete from "react-google-autocomplete"; // Importing the Autocomplete component for Google Maps
 
 function AddressFinder() {
-  // Default position for the map or markers
-  const position = { lat: 53.54, lng: 10 };
-
   return (
     <>
       {/* Autocomplete component for searching locations */}
@@ -29,3 +26,4 @@ function AddressFinder() {
     </>
   );
 }
+export default AddressFinder; // Exporting the AddressFinder component for use in other files
