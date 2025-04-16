@@ -11,10 +11,11 @@ function isPointInPolygon(point: Point, polygon: Polygon): boolean {
         const [xi, yi] = polygon[i];
         const [xj, yj] = polygon[j];
 
-        const intersects =
-            yi > py !== yj > py &&
-            px < ((xj - xi) * (py - yi)) / (yj - yi) + xi;
 
+        // Check if the ray intersects with the edge of the polygon
+        const intersects =
+            yi > py !== yj > py && // Check if the point is between the y-coordinates of the edge
+            px < ((xj - xi) * (py - yi)) / (yj - yi) + xi; // Check if the point is to the left of the edge
         if (intersects) inside = !inside;
     }
 
