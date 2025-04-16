@@ -1,21 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Navbar from "../components/Navbar";
 import AddressFinder from "../components/AddressFinder"; // Importing the AddressFinder component
+
 const Calculator: React.FC = () => {
   const [CoordinateValue, setCoordinateValue] = useState<string | "">("");
   const [squareMeterValue, setsquareMeterValue] = useState<number | "">("");
-  const [result, setResult] = useState<{ text: string; number: number | null }>(
-    {
-      text: "",
-      number: null,
-    }
-  );
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleCalculation = () => {
     if (CoordinateValue !== "" && squareMeterValue !== "") {
-      const resultText = `Coordinates: ${CoordinateValue}`;
-      const resultNumber = squareMeterValue;
-      setResult({ text: resultText, number: resultNumber });
+      // Navigate to the Results page and pass data via state
+      navigate("/Results", {
+        state: {
+          text: `Coordinates: ${CoordinateValue}`,
+          number: squareMeterValue,
+        },
+      });
     }
   };
 
@@ -62,13 +63,6 @@ const Calculator: React.FC = () => {
         <button className="btn btn-primary" onClick={handleCalculation}>
           Calculate
         </button>
-        {result.text && result.number !== null && (
-          <div className="result">
-            <h3>Result:</h3>
-            <p>{result.text}</p>
-            <p>Square Meters: {result.number}</p>
-          </div>
-        )}
       </div>
     </>
   );
