@@ -1,29 +1,52 @@
-import Autocomplete from "react-google-autocomplete"; // Importing the Autocomplete component for Google Maps
+import { Autocomplete } from "@react-google-maps/api";
+import { useCoordinates } from "../context/CoordinatesContext";
+import { useEffect, useRef, useState } from "react";
+import { useJsApiLoader } from "@react-google-maps/api";
 
 function AddressFinder() {
+  const { setCoordinates, lastUpdatedBy } = useCoordinates();
+  const autocompleteRef = useRef<HTMLInputElement>(null);
+  const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Your key from .env
+    libraries: ["places"], // Required for Autocomplete
+  });
+
+  useEffect(() => {
+    if (lastUpdatedBy === "input" && autocompleteRef.current) {
+      autocompleteRef.current.value = "";
+    }
+  }, [lastUpdatedBy]);
+
+  const onLoad = (autocompleteInstance: google.maps.places.Autocomplete) => {
+    setAutocomplete(autocompleteInstance);
+  };
+
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      if (place.geometry?.location) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        setCoordinates({ lat, lng }, "finder");
+      }
+    }
+  };
+
+  if (loadError) return <div>Failed to load Google Maps</div>;
+  if (!isLoaded) return <div>Loading...</div>;
+
   return (
-    <>
-      {/* Autocomplete component for searching locations */}
-      <div>
-        <Autocomplete
-          apiKey={
-            import.meta.env.VITE_GOOGLE_MAPS_API_KEY // Fetching the Google Maps API key from environment variables
-          }
-          onPlaceSelected={(place) => {
-            // Callback function triggered when a place is selected
-            if (place?.geometry?.location) {
-              const lat = place.geometry.location.lat(); // Extract latitude
-              const lng = place.geometry.location.lng(); // Extract longitude
-              console.log("Lat:", lat, "Lng:", lng); // Log the coordinates to the console
-            }
-          }}
-          options={{
-            types: ["address"], // Restrict search to addresses
-            componentRestrictions: { country: "se" }, // Restrict search to Sweden
-          }}
-        ></Autocomplete>
-      </div>
-    </>
+    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Search address"
+        ref={autocompleteRef}
+      />
+    </Autocomplete>
   );
 }
-export default AddressFinder; // Exporting the AddressFinder component for use in other files
+
+export default AddressFinder;
