@@ -11,12 +11,16 @@ import solarFetch from "../solarFetch"; // Assuming you have a function to fetch
 const Calculator: React.FC = () => {
   const { coordinates } = useCoordinates();
   const { area } = useArea();
-  const [result, setResult] = useState<{ text: string }>({
-    text: "",
-  });
+  const navigate = useNavigate(); // Initialize useNavigate
+  const [isLoading, setIsLoading] = useState(false); // State to track loading
 
   const handleCalculation: () => Promise<void> = async () => {
-    setResult({ text: "Loading..." }); // Reset result before calculation
+    if (!coordinates || !area) {
+      alert("Please provide both coordinates and area.");
+      return;
+    }
+
+    setIsLoading(true); // Start loading
     const resultDescription = `Coordinates: ${coordinates?.lat}, ${
       coordinates?.lng
     } Area: ${area} m²
@@ -24,8 +28,11 @@ const Calculator: React.FC = () => {
       coordinates?.lat ?? undefined,
       coordinates?.lng ?? undefined,
       area ?? undefined
-    )}`; // Example description // Example usage of solarFetch
-    setResult({ text: resultDescription });
+    )}`; // Example description
+
+    setIsLoading(false); // Stop loading
+    // Redirect to the Results page and pass the result as state
+    navigate("/results", { state: { result: resultDescription } });
   };
 
   return (
@@ -47,6 +54,17 @@ const Calculator: React.FC = () => {
         <button className="btn btn-primary" onClick={handleCalculation}>
           Calculate
         </button>
+        {isLoading && (
+          <div className="mt-3">
+            <div className="progress">
+              <div
+                className="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style={{ width: "100%" }}
+              ></div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
