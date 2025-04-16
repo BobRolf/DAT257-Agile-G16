@@ -1,4 +1,4 @@
-async function solarFetch(latitude=57.000, longitude=11.000, area = 5.0): Promise<string | undefined> {
+async function solarFetch(latitude=57.000, longitude=11.000, area = 5.0): Promise<number | undefined> {
     //Get the date
     const date = new Date();
     const currentYear = date.getFullYear()
@@ -17,8 +17,9 @@ async function solarFetch(latitude=57.000, longitude=11.000, area = 5.0): Promis
         const asi = avgSolarIrradiance(res)
         const ep = solarPanelElectricityProduction(asi, area, 0.20)
 
+
         console.log('solar irradiance per day ' + asi.toFixed(4) + ' kWh/m^2.', 'avg solar panel output ' + ep.toFixed(4) + ' kWh.')
-        return ('solar irradiance per day ' + asi.toFixed(4) + ' kWh/m^2.', 'avg solar panel output ' + ep.toFixed(4) + ' kWh.')
+        return ep
     }
     catch (error) {
         console.error('couldnt fetch solar data')
