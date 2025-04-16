@@ -1,5 +1,6 @@
 // Retrieve a JSON file from elprisetjustnu API with hourly recordings from a set date and electrical price area, calculate the average price over 24h
-async function fetchDailyAveragePrice(date: Date, area: string): Promise<number | null>{
+async function averagePrice(area: string): Promise<number | undefined>{
+    const date = new Date();
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -29,11 +30,11 @@ export async function fetchTwoYearSpanAveragePrice(today: Date, area: string): P
         date.setDate(1);
         dates.push(date);
     }
-    const fetches = dates.map(date => fetchDailyAveragePrice(date, area));
+    const fetches = dates.map(date => averagePrice(date, area));
     const results = (await Promise.all(fetches)).filter((r): r is number => r !== null);
 
     const total = results.reduce((sum, val) => sum + val, 0);
 
     return total / results.length;
 }
-export { fetchDailyAveragePrice };
+export default averagePrice;
