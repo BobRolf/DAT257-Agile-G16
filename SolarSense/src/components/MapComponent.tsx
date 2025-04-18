@@ -1,4 +1,4 @@
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useState } from "react";
 
 const containerStyle = {
@@ -11,22 +11,15 @@ const startCenter = {
   lng: 16,
 };
 
-const MapComponent = ({ apiKey }: { apiKey: string }) => {
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: apiKey,
-  });
+const Bounds = {
+  north: 70.0,
+  south: 50.0,
+  west: -15.0,
+  east: 45.0,
+};
 
+const MapComponent = () => {
   const [markers, setMarkers] = useState<{ lat: number; lng: number }[]>([]);
-
-  if (loadError) return <div>Kartan kunde inte laddas</div>;
-  if (!isLoaded) return <div>Laddar karta...</div>;
-
-  const Bounds = {
-    north: 70.0,
-    south: 50.0,
-    west: -15.0,
-    east: 45.0,
-  };
 
   // Function to handle map clicks and add a marker
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
