@@ -19,7 +19,9 @@ const Bounds = {
 };
 
 const MapComponent = () => {
-  const [markers, setMarkers] = useState<{ lat: number; lng: number }[]>([]);
+  const [marker, setMarkers] = useState<{ lat: number; lng: number } | null>(
+    null
+  );
 
   // Function to handle map clicks and add a marker
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
@@ -29,7 +31,7 @@ const MapComponent = () => {
         lng: event.latLng.lng(),
       };
       console.log("Marker added at:", event.latLng.lat(), event.latLng.lng()),
-        setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
+        setMarkers(newMarker);
     }
   };
 
@@ -52,9 +54,7 @@ const MapComponent = () => {
       onClick={handleMapClick} // Add the onClick event to handle map clicks
     >
       {/* Render markers */}
-      {markers.map((marker, index) => (
-        <Marker key={index} position={marker} />
-      ))}
+      {marker && <Marker position={marker} />}
     </GoogleMap>
   );
 };
