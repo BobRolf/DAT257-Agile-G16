@@ -1,4 +1,4 @@
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useState } from "react";
 
 const containerStyle = {
@@ -28,7 +28,8 @@ const MapComponent = () => {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
       };
-      setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
+      console.log("Marker added at:", event.latLng.lat(), event.latLng.lng()),
+        setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
     }
   };
 
