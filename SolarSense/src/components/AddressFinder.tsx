@@ -30,7 +30,11 @@ function AddressFinder() {
   };
 
   return (
-    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+    <Autocomplete
+      onLoad={onLoad}
+      onPlaceChanged={onPlaceChanged}
+      options={{ types: ["address"], componentRestrictions: { country: "se" } }}
+    >
       <input
         type="text"
         className="form-control"
