@@ -3,14 +3,17 @@ import { useCoordinates } from "../context/CoordinatesContext";
 import { useEffect, useRef, useState } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 
+const libraries: "places"[] = ["places"];
+
 function AddressFinder() {
   const { setCoordinates, lastUpdatedBy } = useCoordinates();
   const autocompleteRef = useRef<HTMLInputElement>(null);
-  const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
+  const [autocomplete, setAutocomplete] =
+    useState<google.maps.places.Autocomplete | null>(null);
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Your key from .env
-    libraries: ["places"], // Required for Autocomplete
+    libraries, // Required for Autocomplete
   });
 
   useEffect(() => {
