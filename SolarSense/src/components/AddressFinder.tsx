@@ -1,17 +1,12 @@
 import { Autocomplete } from "@react-google-maps/api";
 import { useCoordinates } from "../context/CoordinatesContext";
 import { useEffect, useRef, useState } from "react";
-import { useJsApiLoader } from "@react-google-maps/api";
 
 function AddressFinder() {
   const { setCoordinates, lastUpdatedBy } = useCoordinates();
   const autocompleteRef = useRef<HTMLInputElement>(null);
-  const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
-
-  const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Your key from .env
-    libraries: ["places"], // Required for Autocomplete
-  });
+  const [autocomplete, setAutocomplete] =
+    useState<google.maps.places.Autocomplete | null>(null);
 
   useEffect(() => {
     if (lastUpdatedBy === "input" && autocompleteRef.current) {
@@ -34,11 +29,12 @@ function AddressFinder() {
     }
   };
 
-  if (loadError) return <div>Failed to load Google Maps</div>;
-  if (!isLoaded) return <div>Loading...</div>;
-
   return (
-    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+    <Autocomplete
+      onLoad={onLoad}
+      onPlaceChanged={onPlaceChanged}
+      options={{ types: ["address"], componentRestrictions: { country: "se" } }}
+    >
       <input
         type="text"
         className="form-control"
