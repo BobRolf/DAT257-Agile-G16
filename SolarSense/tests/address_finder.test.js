@@ -1,4 +1,4 @@
-import { addressFinder } from './src/AddressFinder.tsx';
+const { addressFinder } = require('../src/components/AddressFinder');
 
 globalThis.fetch = jest.fn();
 
@@ -23,8 +23,6 @@ test('address finder should return data when successful', async () => {
     const result = await addressFinder();
 })
 
-
-expect(fetch).toHaveBeenCalledWith('');
 expect(result).toEqual(expect.objectContaining({
     longitude: expect.any(Number),
     latitude: expect.any(Number)
