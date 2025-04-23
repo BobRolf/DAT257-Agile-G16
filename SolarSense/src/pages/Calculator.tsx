@@ -34,9 +34,11 @@ const Calculator: React.FC = () => {
     );
     const savedPerYear = (effectPerDay ?? 0) * 365 * (price ?? 0);
 
-    const resultDescription = `Coordinates: ${coordinates?.lat}, ${coordinates?.lng} Area: ${area} m²
+    const resultDescription = `Coordinates: ${coordinates?.lat}, ${coordinates?.lng} 
+    Area: ${area} m²
     Result: ${effectPerDay} avg. kWh/day
-    Electrical price area: ${zone}, Avg money saved per year: ${savedPerYear}`; // Example description // Example usage of solarFetch
+    Electrical price area: ${zone} 
+    Avg money saved per year: ${savedPerYear}`; // Example description // Example usage of solarFetch
 
     setIsLoading(false); // Stop loading
     // Redirect to the Results page and pass the result as state
