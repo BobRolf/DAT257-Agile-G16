@@ -7,28 +7,36 @@ import AreaInput from "../components/AreaInput";
 import { useArea } from "../context/AreaContext";
 import { useCoordinates } from "../context/CoordinatesContext";
 import solarFetch from "../solarFetch"; // Assuming you have a function to fetch solar data
+import priceZoneMapper from "../priceZoneMapper"; // Assuming you have a function to find the electrical price zone
+import averagePrice from "../averagePrice";
 
 const Calculator: React.FC = () => {
   const { coordinates } = useCoordinates();
   const { area } = useArea();
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [isLoading, setIsLoading] = useState(false); // State to track loading
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculation: () => Promise<void> = async () => {
     if (!coordinates || !area) {
       alert("Please provide both coordinates and area.");
       return;
     }
-
-    setIsLoading(true); // Start loading
-    const resultDescription = `Coordinates: ${coordinates?.lat}, ${
-      coordinates?.lng
-    } Area: ${area} m²
-    Result: ${await solarFetch(
+    setIsLoading(true);
+    const zone = await priceZoneMapper([
+      coordinates?.lat ?? 0,
+      coordinates?.lng ?? 0,
+    ]);
+    const price = await averagePrice(zone ?? "S3");
+    const effectPerDay = await solarFetch(
       coordinates?.lat ?? undefined,
       coordinates?.lng ?? undefined,
       area ?? undefined
-    )}`; // Example description
+    );
+    const savedPerYear = (effectPerDay ?? 0) * 365 * (price ?? 0);
+
+    const resultDescription = `Coordinates: ${coordinates?.lat}, ${coordinates?.lng} Area: ${area} m²
+    Result: ${effectPerDay} avg. kWh/day
+    Electrical price area: ${zone}, Avg money saved per year: ${savedPerYear}`; // Example description // Example usage of solarFetch
 
     setIsLoading(false); // Stop loading
     // Redirect to the Results page and pass the result as state
@@ -54,6 +62,7 @@ const Calculator: React.FC = () => {
         <button className="btn btn-primary" onClick={handleCalculation}>
           Calculate
         </button>
+
         {isLoading && (
           <div className="mt-3">
             <div className="progress">
