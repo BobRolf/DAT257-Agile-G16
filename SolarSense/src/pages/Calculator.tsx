@@ -47,38 +47,52 @@ const Calculator: React.FC = () => {
 
   return (
     <>
-      <div>
-        <Navbar />
-        <h1>Calculator</h1>
-        <p>This is the Calculator page.</p>
-        <label htmlFor="squareMeterValue">
-          Please insert a location using the address finder or by entering
-          coordinates:
-        </label>
-        <LocationSelector></LocationSelector>
-        <label htmlFor="squareMeterValue">
-          Please insert how many square meters of solarpanels you would like to
-          install:
-        </label>
-        <AreaInput></AreaInput>
-        <button className="btn btn-primary" onClick={handleCalculation}>
-          Calculate
-        </button>
-
-        {isLoading && (
-          <div className="mt-3">
-            <div className="progress">
-              <div
-                className="progress-bar progress-bar-striped progress-bar-animated"
-                role="progressbar"
-                style={{ width: "100%" }}
-              ></div>
+      <Navbar />
+  
+      <div className="card py-1 px-3">
+        <h1 className="mb-1">Calculator</h1>
+        <p className="mb-2">Using this calculator you can find out how much energy your solar panels will produce on average. At the moment, calculating monetary savings is only supported in Sweden.</p>
+  
+        <div className="row">
+          {/* Location Card */}
+          <div className="col-md-6 mb-4">
+            <div className="card p-4 h-100">
+              <h5 className="card-title mb-3">Location</h5>
+              <p>Please insert a location using the address finder or by entering coordinates:</p>
+              <LocationSelector />
             </div>
           </div>
-        )}
+  
+          {/* Area Card + Button tightly grouped */}
+          <div className="col-md-6 mb-4">
+            <div className="card p-4">
+              <h5 className="card-title mb-3">Solar Panel Area</h5>
+              <p>Please insert how many square meters of solar panels you would like to install:</p>
+              <AreaInput />
+            </div>
+  
+          {/* Button + Loading Bar grouped together */}
+          <div className="d-flex flex-column align-items-center mt-2">
+            <button className="btn btn-primary w-75" onClick={handleCalculation}>
+              Calculate
+            </button>
+
+            {/* Loading bar appears directly under button */}
+            {isLoading && (
+              <div className="progress w-75 mt-3" style={{ height: "20px" }}>
+                <div
+                  className="progress-bar progress-bar-striped progress-bar-animated"
+                  role="progressbar"
+                  style={{ width: "100%" }}
+                ></div>
+              </div>
+            )}
+          </div>
+        </div>
+        </div>
       </div>
     </>
   );
-};
+}  
 
 export default Calculator;
