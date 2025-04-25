@@ -1,9 +1,10 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
-import { AddressFinder } from '../src/components/AddressFinder';
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { AddressFinder } from "../src/components/AddressFinder";
 
 // Mock the Autocomplete component
-vi.mock('react-google-autocomplete', () => ({
+vi.mock("react-google-autocomplete", () => ({
   __esModule: true,
   default: ({ onPlaceSelected, apiKey }) => {
     return (
@@ -20,20 +21,22 @@ vi.mock('react-google-autocomplete', () => ({
   },
 }));
 
-describe('AddressFinder', () => {
-  it('should log coordinates when a place is selected', async () => {
+describe("AddressFinder", () => {
+  it("should log coordinates when a place is selected", async () => {
     // Mock the console log to capture the output
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
     // Render the component
     render(<AddressFinder />);
 
     // Simulate clicking the "Select Place" button (mimicking place selection)
-    const button = screen.getByText('Select Place');
+    const button = screen.getByText("Select Place");
     fireEvent.click(button);
 
     // Wait for the async actions to complete
-    await waitFor(() => expect(logSpy).toHaveBeenCalledWith('Lat:', 59.3293, 'Lng:', 18.0686));
+    await waitFor(() =>
+      expect(logSpy).toHaveBeenCalledWith("Lat:", 59.3293, "Lng:", 18.0686)
+    );
 
     // Clean up the mock
     logSpy.mockRestore();
