@@ -36,6 +36,13 @@ function AddressFinder() {
       options={{ types: ["address"], componentRestrictions: { country: "se" } }}
     >
       <input
+        style={{
+          width: "100%",
+          maxWidth: "500px",
+          display: "block",
+          padding: "0.5rem",
+          fontSize: "1rem"
+        }}
         type="text"
         className="form-control"
         placeholder="Search address"

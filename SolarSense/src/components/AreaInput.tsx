@@ -18,6 +18,13 @@ function AreaInput() {
 }
   return (
     <input
+      style={{
+        width: "100%",
+        maxWidth: "500px",
+        display: "block",
+        padding: "0.5rem",
+        fontSize: "1rem"
+      }}
       type="number"
       className="form-control"
       placeholder="Example: 3.2"
