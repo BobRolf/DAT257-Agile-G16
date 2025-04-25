@@ -26,3 +26,5 @@ export function AddressFinder() {
     </>
   );
 }
+
+export default AddressFinder
