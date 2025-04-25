@@ -14,14 +14,17 @@
     "bootstrap": "^5.3.5",
     "fs": "^0.0.1-security",
     "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
-    "react-google-autocomplete": "^2.7.5"
+    "react-google-autocomplete": "^2.7.5",
+    "react-switch": "^7.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@types/node": "^22.14.1",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@types/react-toggle": "^4.0.5",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
