@@ -2,8 +2,9 @@ import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useState } from "react";
 
 const containerStyle = {
-  width: "25%",
-  height: "400px",
+  width: "100%",
+  height: "50vh", // 50% of viewport height
+  maxWidth: "600px",
 };
 
 const startCenter = {
