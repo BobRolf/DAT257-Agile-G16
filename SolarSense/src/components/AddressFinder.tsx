@@ -2,7 +2,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import { useCoordinates } from "../context/CoordinatesContext";
 import { useEffect, useRef, useState } from "react";
 
-export function AddressFinder() {
+function AddressFinder() {
   const { setCoordinates, lastUpdatedBy } = useCoordinates();
   const autocompleteRef = useRef<HTMLInputElement>(null);
   const [autocomplete, setAutocomplete] =

@@ -1,5 +1,4 @@
-
-export async function solarFetch(latitude=57.000, longitude=11.000, area = 5.0): Promise<string | undefined> {
+async function solarFetch(latitude=57.000, longitude=11.000, area = 5.0): Promise<number | undefined> {
     //Get the date
     const date = new Date();
     const currentYear = date.getFullYear()
@@ -20,8 +19,7 @@ export async function solarFetch(latitude=57.000, longitude=11.000, area = 5.0):
 
 
         console.log('solar irradiance per day ' + asi.toFixed(4) + ' kWh/m^2.', 'avg solar panel output ' + ep.toFixed(4) + ' kWh.')
-
-        return `solar irradiance per day ${asi.toFixed(4)} kWh/m^2. avg solar panel output ${ep.toFixed(4)} kWh.`
+        return ep
     }
     catch (error) {
         console.error('couldnt fetch solar data')
@@ -31,7 +29,7 @@ export async function solarFetch(latitude=57.000, longitude=11.000, area = 5.0):
 }
 
 //res is the json response object
-export function avgSolarIrradiance(res: any) {
+function avgSolarIrradiance(res: any) {
     //Get only solar irradiance
     res = res.properties.parameter.ALLSKY_SFC_SW_DWN
     //Convert to array of numbers
@@ -44,7 +42,7 @@ export function avgSolarIrradiance(res: any) {
 }
 
 //panelArea in m^2, locIrradiance in kWh/m^2 (avg per day), panelEfficieny in percentage.
-export function solarPanelElectricityProduction(locIrradiance: number, panelArea: number, panelEfficiency: number) {
+function solarPanelElectricityProduction(locIrradiance: number, panelArea: number, panelEfficiency: number) {
     const dailyElectricOutput = locIrradiance * panelArea * panelEfficiency
     return dailyElectricOutput
 }
