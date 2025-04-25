@@ -9,20 +9,21 @@ function Settings() {
     <div>
       <Navbar />
       <div className="container mt-5 d-flex justify-content-center">
-        <SettingsCard />
+        <SettingsCard>
+          <Switch
+            onChange={setIsDark}
+            checked={isDark}
+            onColor="#000"
+            offColor="#ddd"
+          />
+          <label>
+            <span style={{ marginRight: "1rem" }}>
+              {isDark ? "Dark Mode" : "Light Mode"}
+            </span>
+          </label>
+        </SettingsCard>
         {/* Add SettingCard */}
       </div>
-      <label>
-        <span style={{ marginRight: "1rem" }}>
-          {isDark ? "Dark Mode" : "Light Mode"}
-        </span>
-        <Switch
-          onChange={setIsDark}
-          checked={isDark}
-          onColor="#000"
-          offColor="#ddd"
-        />
-      </label>
     </div>
   );
 }
