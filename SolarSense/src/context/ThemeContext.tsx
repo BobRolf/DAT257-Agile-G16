@@ -39,7 +39,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
     return (
         <ThemeContext.Provider value={{ isDark, toggleTheme }}>
-            {children} {}
+            {children}
         </ThemeContext.Provider>
     );
 };
