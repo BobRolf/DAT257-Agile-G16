@@ -1,0 +1,30 @@
+import React, { useState } from "react";
+import Navbar from "../components/Navbar";
+import SettingsCard from "../components/SettingsCard";
+import Switch from "react-switch";
+
+function Settings() {
+  const [isDark, setIsDark] = useState(true);
+  return (
+    <div>
+      <Navbar />
+      <div className="container mt-5 d-flex justify-content-center">
+        <SettingsCard />
+        {/* Add SettingCard */}
+      </div>
+      <label>
+        <span style={{ marginRight: "1rem" }}>
+          {isDark ? "Dark Mode" : "Light Mode"}
+        </span>
+        <Switch
+          onChange={setIsDark}
+          checked={isDark}
+          onColor="#000"
+          offColor="#ddd"
+        />
+      </label>
+    </div>
+  );
+}
+
+export default Settings;

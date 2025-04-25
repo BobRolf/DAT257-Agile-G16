@@ -5,15 +5,19 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">SolarSense</NavLink> {/* Use NavLink for branding */}
-        <button 
+        <NavLink className="navbar-brand" to="/">
+          SolarSense
+        </NavLink>{" "}
+        {/* Use NavLink for branding */}
+        <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
         >
           <span className="navbar-toggler-icon" />
-        </button> {/* Toggler for mobile view */}
+        </button>{" "}
+        {/* Toggler for mobile view */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
@@ -24,32 +28,32 @@ function Navbar() {
               >
                 Home
               </NavLink>
-            </li>{/* Home Button */}
+            </li>
+            {/* Home Button */}
             <li className="nav-item">
-              <NavLink
-                className="nav-link"
-                to="/calculator"
-              >
+              <NavLink className="nav-link" to="/calculator">
                 Calculator
               </NavLink>
-            </li> {/* Calculator button */}
+            </li>{" "}
+            {/* Calculator button */}
             <li className="nav-item">
-              <NavLink
-                className="nav-link"
-                to="/facts"
-              >
+              <NavLink className="nav-link" to="/facts">
                 Facts
               </NavLink>
-            </li> {/* Facts Button */}
+            </li>{" "}
+            {/* Facts Button */}
             <li className="nav-item">
-              <NavLink
-                className="nav-link"
-                to="/about"
-              >
+              <NavLink className="nav-link" to="/about">
                 About
               </NavLink>
             </li>
             {/* About button*/}
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/settings">
+                Settings
+              </NavLink>
+            </li>{" "}
+            {/* settings button */}
           </ul>
         </div>
       </div>
