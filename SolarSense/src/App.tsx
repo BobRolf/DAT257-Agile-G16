@@ -4,6 +4,7 @@ import About from "./pages/About";
 import Facts from "./pages/Facts";
 import Calculator from "./pages/Calculator";
 import Settings from "./pages/Settings";
+import Results from "./pages/Results";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/facts" element={<Facts />} />
       <Route path="/calculator" element={<Calculator />} />
-      <Route path="/settings" element={<Settings />} />
+      <Route path="/results" element={<Results />} />
+        <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }
