@@ -6,13 +6,16 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import { CoordinatesProvider } from './context/CoordinatesContext.tsx';
 import { AreaProvider } from './context/AreaContext.tsx';
+import { ThemeProvider } from "./context/ThemeContext.tsx";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <CoordinatesProvider>
       <AreaProvider>
         <BrowserRouter>
+            <ThemeProvider>
           <App />
+            </ThemeProvider>
         </BrowserRouter>
       </AreaProvider>
     </CoordinatesProvider>

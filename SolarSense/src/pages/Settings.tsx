@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 import Navbar from "../components/Navbar";
 import SettingsCard from "../components/SettingsCard";
 import Switch from "react-switch";
 
+
 function Settings() {
-  const [isDark, setIsDark] = useState(true);
+    const { isDark, toggleTheme } = useTheme();
+
   return (
     <div>
       <Navbar />
@@ -17,7 +19,7 @@ function Settings() {
           {isDark ? "Dark Mode" : "Light Mode"}
         </span>
         <Switch
-          onChange={setIsDark}
+            onChange={toggleTheme}
           checked={isDark}
           onColor="#000"
           offColor="#ddd"
