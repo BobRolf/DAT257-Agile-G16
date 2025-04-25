@@ -15,6 +15,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
     "bootstrap": "^5.3.5",
+    "fs": "^0.0.1-security",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-google-autocomplete": "^2.7.5"
@@ -24,6 +25,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@types/jest": "^29.5.14",
+    "@types/node": "^22.14.1",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/testing-library__react": "^10.2.0",
