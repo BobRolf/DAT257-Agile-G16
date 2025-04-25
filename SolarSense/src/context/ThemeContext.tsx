@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-// Define the types for our context
+
 interface ThemeContextType {
     isDark: boolean
     toggleTheme: () => void;
@@ -32,7 +32,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
         document.body.setAttribute("data-bs-theme", isDark ? "dark" : "light");
     }, [isDark]);
 
-    // Function to toggle theme between dark and light mode
+   
     const toggleTheme = () => {
         setIsDark((prevTheme) => !prevTheme);
     };
