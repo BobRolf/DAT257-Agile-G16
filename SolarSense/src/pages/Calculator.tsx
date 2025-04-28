@@ -6,9 +6,9 @@ import LocationSelector from "../components/LocationSelector";
 import AreaInput from "../components/AreaInput";
 import { useArea } from "../context/AreaContext";
 import { useCoordinates } from "../context/CoordinatesContext";
-import solarFetch from "../solarFetch"; // Assuming you have a function to fetch solar data
-import priceZoneMapper from "../priceZoneMapper"; // Assuming you have a function to find the electrical price zone
-import averagePrice from "../averagePrice";
+import solarFetch from "../utility/solarFetch"; // Assuming you have a function to fetch solar data
+import priceZoneMapper from "../utility/priceZoneMapper"; // Assuming you have a function to find the electrical price zone
+import averagePrice from "../utility/averagePrice";
 
 const Calculator: React.FC = () => {
   const { coordinates } = useCoordinates();

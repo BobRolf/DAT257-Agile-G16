@@ -13,7 +13,7 @@ async function averagePrice(area: string): Promise<number | undefined>{
     const data = await res.json();
     const prices: number[] = data.map((entry: any) => entry.SEK_per_kWh);
 
-    if (prices.length === 0) return null;
+    if (prices.length === 0) return undefined;
 
     const dailyAverage = prices.reduce((sum, p) => sum + p, 0) / prices.length;
     return dailyAverage
