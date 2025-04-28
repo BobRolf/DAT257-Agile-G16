@@ -7,8 +7,8 @@ type Coordinates = {
 
 type CoordinatesContextType = {
   coordinates: Coordinates | null;
-  setCoordinates: (coords: Coordinates, source: 'finder' | 'input') => void;
-  lastUpdatedBy: 'finder' | 'input' | null;
+  setCoordinates: (coords: Coordinates, source: 'finder' | 'input' | 'map') => void;
+  lastUpdatedBy: 'finder' | 'input' | 'map' | null;
 };
 
 const CoordinatesContext = createContext<CoordinatesContextType | undefined>(undefined);
