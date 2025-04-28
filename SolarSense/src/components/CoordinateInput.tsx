@@ -6,7 +6,7 @@ function CoordinateInput() {
   const [coordinateValue, setCoordinateValue] = useState("");
 
   useEffect(() => {
-    if (coordinates && lastUpdatedBy === "finder") {
+    if (coordinates && (lastUpdatedBy === "finder" || lastUpdatedBy === "map")) {
       setCoordinateValue(`${coordinates.lat}, ${coordinates.lng}`);
     }
   }, [coordinates, lastUpdatedBy]);
