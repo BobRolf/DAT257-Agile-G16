@@ -1,6 +1,6 @@
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useState, useEffect, useRef, use } from "react";
-import { useCoordinates } from "../context/CoordinatesContext";
+import { useCoordinates } from "../../context/CoordinatesContext";
 
 
 const containerStyle = {

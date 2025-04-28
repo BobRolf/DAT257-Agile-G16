@@ -1,5 +1,5 @@
 import { Autocomplete } from "@react-google-maps/api";
-import { useCoordinates } from "../context/CoordinatesContext";
+import { useCoordinates } from "../../context/CoordinatesContext";
 import { useEffect, useRef, useState } from "react";
 
 function AddressFinder() {

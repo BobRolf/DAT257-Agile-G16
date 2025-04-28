@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCoordinates } from "../context/CoordinatesContext";
+import { useCoordinates } from "../../context/CoordinatesContext";
 
 function CoordinateInput() {
   const { coordinates, setCoordinates, lastUpdatedBy } = useCoordinates();

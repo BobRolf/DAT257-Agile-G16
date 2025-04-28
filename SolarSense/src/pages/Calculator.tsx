@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Navbar from "../components/Navbar";
 
-import LocationSelector from "../components/LocationSelector";
-import AreaInput from "../components/AreaInput";
+import LocationSelector from "../components/LocationComponents/LocationSelector";
+import AreaInput from "../components/LocationComponents/AreaInput";
 import { useArea } from "../context/AreaContext";
 import { useCoordinates } from "../context/CoordinatesContext";
-import solarFetch from "../utility/solarFetch"; // Assuming you have a function to fetch solar data
+import solarFetch from "../solarFetch"; // Assuming you have a function to fetch solar data
 import priceZoneMapper from "../utility/priceZoneMapper"; // Assuming you have a function to find the electrical price zone
 import averagePrice from "../utility/averagePrice";
 
