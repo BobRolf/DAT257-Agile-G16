@@ -4,7 +4,7 @@ import Card from "./Card";
 const FactsCard: React.FC = () => {
   return (
     <Card
-      image=""
+      image="/src/assets/solar-chart.PNG"
       title="Facts about Solar-panels and enviromental impacts"
       text={`1. How Solar Panels Impact the Environment
 
