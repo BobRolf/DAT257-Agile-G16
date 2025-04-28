@@ -15,9 +15,9 @@ const CoordinatesContext = createContext<CoordinatesContextType | undefined>(und
 
 export function CoordinatesProvider({ children }: { children: ReactNode }) {
   const [coordinates, setCoords] = useState<Coordinates | null>(null);
-  const [lastUpdatedBy, setLastUpdatedBy] = useState<'finder' | 'input' | null>(null);
+  const [lastUpdatedBy, setLastUpdatedBy] = useState<'finder' | 'input' | 'map' | null>(null);
 
-  const setCoordinates = (coords: Coordinates, source: 'finder' | 'input') => {
+  const setCoordinates = (coords: Coordinates, source: 'finder' | 'input' | 'map') => {
     setCoords(coords);
     setLastUpdatedBy(source);
   };
