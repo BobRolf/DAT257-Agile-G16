@@ -2,7 +2,6 @@ import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useState, useEffect, useRef, use } from "react";
 import { useCoordinates } from "../../context/CoordinatesContext";
 
-
 const containerStyle = {
   width: "100%",
   height: "400px",
@@ -20,14 +19,12 @@ const Bounds = {
   east: 45.0,
 };
 
-
-
 const MapComponent = () => {
   const [marker, setMarkers] = useState<{ lat: number; lng: number } | null>(
     null
   );
 
-  const {setCoordinates, lastUpdatedBy, coordinates} = useCoordinates()
+  const { setCoordinates, lastUpdatedBy, coordinates } = useCoordinates();
 
   // Function to handle map clicks and add a marker
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
@@ -40,12 +37,15 @@ const MapComponent = () => {
       };
       console.log("Marker added at:", event.latLng.lat(), event.latLng.lng()),
         setMarkers(newMarker);
-      setCoordinates({lat, lng}, "map");
+      setCoordinates({ lat, lng }, "map");
     }
   };
 
   useEffect(() => {
-    if ((lastUpdatedBy === "input" || lastUpdatedBy === "finder") && coordinates) {
+    if (
+      (lastUpdatedBy === "input" || lastUpdatedBy === "finder") &&
+      coordinates
+    ) {
       const newMarker = {
         lat: coordinates.lat,
         lng: coordinates.lng,

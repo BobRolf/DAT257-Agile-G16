@@ -15,7 +15,7 @@ function AreaInput() {
     } else {
       setArea(NaN);
     }
-}
+  };
   return (
     <input
       type="number"

@@ -1,5 +1,5 @@
-import Navbar from '../components/Navbar'; // Import Navbar
-import HomeCard from '../components/HomeCard'; // Import HomeCard
+import Navbar from "../components/Navbar"; // Import Navbar
+import HomeCard from "../components/HomeCard"; // Import HomeCard
 
 function Home() {
   return (
