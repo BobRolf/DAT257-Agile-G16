@@ -4,12 +4,17 @@ import MapComponent from "./MapComponent";
 import GoogleAPILoader from "./GoogleAPILoader";
 
 function LocationSelector() {
+
+  const enableAddressFinder = true;
+  const enableCoordinateInput = false;
+  const enableMap = true;
+
   return (
     <>
       <GoogleAPILoader>
-        <AddressFinder />
-        <CoordinateInput />
-        <MapComponent />
+        {enableAddressFinder && <AddressFinder />}
+        {enableCoordinateInput && <CoordinateInput />}
+        {enableMap && <MapComponent />}
       </GoogleAPILoader>
     </>
   );
