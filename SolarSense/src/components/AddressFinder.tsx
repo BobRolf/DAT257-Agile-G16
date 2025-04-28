@@ -3,7 +3,7 @@ import { useCoordinates } from "../context/CoordinatesContext";
 import { useEffect, useRef, useState } from "react";
 
 function AddressFinder() {
-  const { setCoordinates, lastUpdatedBy } = useCoordinates();
+  const { setCoordinates, lastUpdatedBy, coordinates } = useCoordinates();
   const autocompleteRef = useRef<HTMLInputElement>(null);
   const [autocomplete, setAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
@@ -12,7 +12,10 @@ function AddressFinder() {
     if (lastUpdatedBy === "input" && autocompleteRef.current) {
       autocompleteRef.current.value = "";
     }
-  }, [lastUpdatedBy]);
+    if (lastUpdatedBy === "map" && autocompleteRef.current) {
+      autocompleteRef.current.value = `${coordinates?.lat}, ${coordinates?.lng}`;
+    }
+  }, [lastUpdatedBy, coordinates]);
 
   const onLoad = (autocompleteInstance: google.maps.places.Autocomplete) => {
     setAutocomplete(autocompleteInstance);
