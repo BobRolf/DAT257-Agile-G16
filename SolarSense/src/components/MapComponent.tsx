@@ -45,7 +45,7 @@ const MapComponent = () => {
   };
 
   useEffect(() => {
-    if ((lastUpdatedBy === "input" || lastUpdatedBy === "finder") && marker && coordinates) {
+    if ((lastUpdatedBy === "input" || lastUpdatedBy === "finder") && coordinates) {
       const newMarker = {
         lat: coordinates.lat,
         lng: coordinates.lng,
