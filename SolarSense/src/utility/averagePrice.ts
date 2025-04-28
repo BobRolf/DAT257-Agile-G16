@@ -30,7 +30,7 @@ export async function fetchTwoYearSpanAveragePrice(today: Date, area: string): P
         date.setDate(1);
         dates.push(date);
     }
-    const fetches = dates.map(date => averagePrice(date, area));
+    const fetches = dates.map(date => averagePrice(area));
     const results = (await Promise.all(fetches)).filter((r): r is number => r !== null);
 
     const total = results.reduce((sum, val) => sum + val, 0);
