@@ -2,11 +2,28 @@
 import { NavLink } from "react-router-dom"; // Import NavLink for active state
 
 function Navbar() {
+  const brandStyle = {
+    fontFamily: "'Orbitron', sans-serif",
+    fontSize: "1.5rem",
+    color: "#ffffff",
+    marginLeft: "0.5rem",
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
-          SolarSense
+        <NavLink 
+          className="navbar-brand d-flex align-items-center"
+          to="/"
+          style={{ padding: '0px' }}>
+        <img
+            src="/Solarsense_icon.png"
+            alt="SolarSense Logo"
+            width="42"
+            height="42"
+            className="me-2 align-middle"
+          />
+          <span style={brandStyle}>SolarSense</span>
         </NavLink>{" "}
         {/* Use NavLink for branding */}
         <button
