@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import FirstResultCard from "../components/ResultCards/FirstResultCard";
 import SecondResultCard from "../components/ResultCards/SecondResultCard";
 import Footer from "../components/Footer"; // Import Footer
@@ -19,30 +18,14 @@ const Results: React.FC = () => {
   };
 
   return (
-    <>
-      <div>
-        <Navbar />
-        <h1>Results</h1>
-        <p>This is the Results page.</p>
-        <div className="container mt-5 d-flex justify-content-center">
-          {currentCard === 1 && <FirstResultCard result={result} />}
-          {currentCard === 2 && <SecondResultCard />}
-        </div>
-        <div className="mt-3 d-flex justify-content-center">
-          {currentCard > 1 && (
-            <button className="btn btn-primary me-2" onClick={handleBack}>
-              Back
-            </button>
-          )}
-          {currentCard < 2 && (
-            <button className="btn btn-primary" onClick={handleNext}>
-              Next
-            </button>
-          )}
-        </div>
+    <div>
+      <h1>Results</h1>
+      <p>This is the Results page.</p>
+      <div className="container mt-5 d-flex justify-content-center">
+        {currentCard === 1 && <FirstResultCard result={result} />}
+        {currentCard === 2 && <SecondResultCard />}
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 

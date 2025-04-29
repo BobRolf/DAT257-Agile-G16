@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer"; // Import Footer
-
-import LocationSelector from "../components/LocationSelector";
-import AreaInput from "../components/AreaInput";
-import { useArea } from "../context/AreaContext";
 import { useCoordinates } from "../context/CoordinatesContext";
-import solarFetch from "../solarFetch"; // Assuming you have a function to fetch solar data
-import priceZoneMapper from "../priceZoneMapper"; // Assuming you have a function to find the electrical price zone
-import averagePrice from "../averagePrice";
+import { useArea } from "../context/AreaContext";
+import LocationSelector from "../components/LocationComponents/LocationSelector";
+import AreaInput from "../components/LocationComponents/AreaInput";
+import resultCalculator from "../utility/resultCalculator";
 
 const Calculator: React.FC = () => {
+  const navigate = useNavigate();
   const { coordinates } = useCoordinates();
   const { area } = useArea();
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculation: () => Promise<void> = async () => {
@@ -23,33 +18,18 @@ const Calculator: React.FC = () => {
       return;
     }
     setIsLoading(true);
-    const zone = await priceZoneMapper([
-      coordinates?.lat ?? 0,
-      coordinates?.lng ?? 0,
-    ]);
-    const price = await averagePrice(zone ?? "S3");
-    const effectPerDay = await solarFetch(
-      coordinates?.lat ?? undefined,
-      coordinates?.lng ?? undefined,
-      area ?? undefined
+    const resultDescription = await resultCalculator(
+      coordinates.lat,
+      coordinates.lng,
+      area
     );
-    const savedPerYear = (effectPerDay ?? 0) * 365 * (price ?? 0);
-
-    const resultDescription = `Coordinates: ${coordinates?.lat}, ${coordinates?.lng} 
-    Area: ${area} m²
-    Result: ${effectPerDay} avg. kWh/day
-    Electrical price area: ${zone} 
-    Avg money saved per year: ${savedPerYear}`; // Example description // Example usage of solarFetch
-
-    setIsLoading(false); // Stop loading
+    setIsLoading(false);
     // Redirect to the Results page and pass the result as state
     navigate("/results", { state: { result: resultDescription } });
   };
 
   return (
     <>
-      <Navbar />
-
       <div className="card py-1 px-3">
         <h1 className="mb-1">Calculator</h1>
         <p className="mb-2">
@@ -64,8 +44,7 @@ const Calculator: React.FC = () => {
             <div className="card p-4 h-100">
               <h5 className="card-title mb-3">Location</h5>
               <p>
-                Please insert a location using the address finder or by entering
-                coordinates:
+                Please insert a location using the address finder or the map:
               </p>
               <LocationSelector />
             </div>
@@ -105,7 +84,6 @@ const Calculator: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
