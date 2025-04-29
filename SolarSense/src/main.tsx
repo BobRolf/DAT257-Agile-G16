@@ -12,11 +12,11 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <CoordinatesProvider>
       <AreaProvider>
-        <BrowserRouter>
-          <ThemeProvider>
+        <ThemeProvider>
+          <BrowserRouter>
             <App />
-          </ThemeProvider>
-        </BrowserRouter>
+          </BrowserRouter>
+        </ThemeProvider>
       </AreaProvider>
     </CoordinatesProvider>
   </StrictMode>
