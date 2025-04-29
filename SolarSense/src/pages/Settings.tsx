@@ -1,5 +1,4 @@
 import { useTheme } from "../context/ThemeContext";
-import Navbar from "../components/Navbar";
 import SettingsCard from "../components/SettingsCard";
 import Switch from "react-switch";
 
@@ -8,7 +7,6 @@ function Settings() {
 
   return (
     <div>
-      <Navbar />
       <div className="container mt-5 d-flex justify-content-center">
         <SettingsCard>
           <div
