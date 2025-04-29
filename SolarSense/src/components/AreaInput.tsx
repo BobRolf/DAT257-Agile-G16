@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useArea } from "../../context/AreaContext";
+import { useArea } from "../context/AreaContext";
 
 function AreaInput() {
   const { area, setArea } = useArea();
