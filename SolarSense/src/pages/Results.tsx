@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import FirstResultCard from "../components/ResultCards/FirstResultCard";
 import SecondResultCard from "../components/ResultCards/SecondResultCard";
-import Footer from "../components/Footer"; // Import Footer
 
 const Results: React.FC = () => {
   const [currentCard, setCurrentCard] = useState(1);
