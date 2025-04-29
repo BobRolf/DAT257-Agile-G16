@@ -4,7 +4,6 @@ const FactsCard: React.FC = () => {
   return (
     <div
       style={{
-        backgroundColor: "white", // Add a white background
         padding: "2rem", // Add padding around the content
         marginBottom: "2rem", // Add margin to prevent content from being too close to the bottom
         width: "100%", // Ensure the wrapper takes the full width
