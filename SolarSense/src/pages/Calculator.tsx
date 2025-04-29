@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import Navbar from "../components/Navbar";
 import { useCoordinates } from "../context/CoordinatesContext";
 import { useArea } from "../context/AreaContext";
 import LocationSelector from "../components/LocationComponents/LocationSelector";
@@ -31,8 +30,6 @@ const Calculator: React.FC = () => {
 
   return (
     <>
-      <Navbar />
-
       <div className="card py-1 px-3">
         <h1 className="mb-1">Calculator</h1>
         <p className="mb-2">

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import FirstResultCard from "../components/ResultCards/FirstResultCard";
 import SecondResultCard from "../components/ResultCards/SecondResultCard";
 
@@ -19,7 +18,6 @@ const Results: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
       <h1>Results</h1>
       <p>This is the Results page.</p>
       <div className="container mt-5 d-flex justify-content-center">
