@@ -1,11 +1,12 @@
-import Card from './Card'
+import Card from "./Card";
 //The card that displays on the home page
 
 const AboutCard: React.FC = () => {
-    return <Card
-    image=""
-    title="About SolarSense"
-    text={`This is a project created for the course Agile Software Projext Management at Chalmers University of Technology. In this course we are tasked to create a project that is related to the UN Sustainability Goals. We chose to create a website that helps people understand the financial and enviromental benefits of solar power.
+  return (
+    <Card
+      image=""
+      title="About SolarSense"
+      text={`This is a project created for the course Agile Software Projext Management at Chalmers University of Technology. In this course we are tasked to create a project that is related to the UN Sustainability Goals. We chose to create a website that helps people understand the financial and enviromental benefits of solar power.
         
         For this we have created a Solar Calculator that helps you find how adding solar panels to your home would impact both you and the environment.
 
@@ -13,9 +14,10 @@ const AboutCard: React.FC = () => {
 
         This project was created by Group 16 and consists of the following members:
         Simon Victor, Erik Hakeröd, Simon Bergström, Oliver Anderzén and Gustav Hartwig`}
-    buttonText="Back to Home"
-    buttonLink="/"
-  />
-}
+      buttonText="Back to Home"
+      buttonLink="/"
+    />
+  );
+};
 
 export default AboutCard;
