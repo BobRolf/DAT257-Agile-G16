@@ -1,7 +1,6 @@
 import { useTheme } from "../context/ThemeContext";
 import SettingsCard from "../components/SettingsCard";
 import Switch from "react-switch";
-import Footer from "../components/Footer";
 
 function Settings() {
   const { isDark, toggleTheme } = useTheme();
@@ -12,7 +11,7 @@ function Settings() {
         <SettingsCard>
           <div
             className="d-flex justify-content-left align-items-left"
-            style={{ marginLeft: "1rem" }}
+            style={{ marginLeft: "1rem", marginBottom: "1rem" }}
           >
             <Switch
               onChange={toggleTheme}
