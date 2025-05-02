@@ -18,6 +18,8 @@ function Settings() {
               checked={isDark}
               onColor="#000"
               offColor="#ddd"
+              uncheckedIcon={false}
+              checkedIcon={false}
             />
             <label>
               <span style={{ marginRight: "1rem" }}>
