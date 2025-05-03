@@ -14,7 +14,7 @@ type CoordinatesContextType = {
   lastUpdatedBy: "finder" | "input" | "map" | null;
 };
 
-const CoordinatesContext = createContext<CoordinatesContextType | undefined>(
+export const CoordinatesContext = createContext<CoordinatesContextType | undefined>(
   undefined
 );
 
