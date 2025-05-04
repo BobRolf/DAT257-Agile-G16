@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useCoordinates } from "../context/CoordinatesContext";
+import { useEfficiency } from "../context/EfficiencyContext";
 import { useArea } from "../context/AreaContext";
 import LocationSelector from "../components/LocationComponents/LocationSelector";
-import AreaInput from "../components/LocationComponents/AreaInput";
+import AreaInput from "../components/AreaInput";
 import resultCalculator from "../utility/resultCalculator";
+import EfficiencyInput from "../components/EfficiencyInput";
 
 const Calculator: React.FC = () => {
   const navigate = useNavigate();
   const { coordinates } = useCoordinates();
   const { area } = useArea();
+  const { efficiency } = useEfficiency();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculation: () => Promise<void> = async () => {
@@ -21,7 +24,8 @@ const Calculator: React.FC = () => {
     const resultDescription = await resultCalculator(
       coordinates.lat,
       coordinates.lng,
-      area
+      area,
+      efficiency ?? 0.2
     );
     setIsLoading(false);
     // Redirect to the Results page and pass the result as state
@@ -59,6 +63,15 @@ const Calculator: React.FC = () => {
                 like to install:
               </p>
               <AreaInput />
+            </div>
+
+            <div className="card p-4">
+              <h5 className="card-title mb-3">Solar Panel Efficiency</h5>
+              <p>
+                Please insert the efficiency of your solar panels, leave blank
+                for default of 0.2:
+              </p>
+              <EfficiencyInput />
             </div>
 
             {/* Button + Loading Bar grouped together */}
