@@ -23,7 +23,7 @@ function Navbar() {
             <li className="nav-item">
               <NavLink
                 className="nav-link"
-                to="/"
+                to="/home"
                 end // 'end' ensures exact matching for the root page
               >
                 Home
@@ -54,6 +54,12 @@ function Navbar() {
               </NavLink>
             </li>{" "}
             {/* settings button */}
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/">
+                Log out
+              </NavLink>
+            </li>{" "}
+            {/* logout button */}
           </ul>
         </div>
       </div>
