@@ -34,11 +34,11 @@ function Card({
         <p className="card-text" style={{ whiteSpace: "pre-line" }}>
           {text}
         </p>
+        <>{children}</>
         <Link to={buttonLink} className="btn btn-primary">
           {buttonText}
         </Link>
       </div>
-      <>{children}</>
     </div>
   );
 }
