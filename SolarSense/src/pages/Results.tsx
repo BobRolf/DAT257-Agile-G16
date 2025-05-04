@@ -24,6 +24,18 @@ const Results: React.FC = () => {
         {currentCard === 1 && <FirstResultCard result={result} />}
         {currentCard === 2 && <SecondResultCard />}
       </div>
+      <div className="mt-3 d-flex justify-content-center">
+        {currentCard > 1 && (
+          <button className="btn btn-primary me-2" onClick={handleBack}>
+            Back
+          </button>
+        )}
+        {currentCard < 2 && (
+          <button className="btn btn-primary" onClick={handleNext}>
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 };
