@@ -5,11 +5,12 @@ import solarFetch from "./solarFetch";
 async function resultCalculator(
   lat: number,
   lng: number,
-  area: number
+  area: number,
+  efficiency: number
 ): Promise<string> {
   const zone = await priceZoneMapper([lat, lng]);
   const price = await averagePrice(zone ?? "S3");
-  const effectPerDay = await solarFetch(lat, lng, area);
+  const effectPerDay = await solarFetch(lat, lng, area, efficiency);
   const savedPerYear = (effectPerDay ?? 0) * 365 * (price ?? 0);
 
   const resultDescription = `Coordinates: ${lat}, ${lng} 

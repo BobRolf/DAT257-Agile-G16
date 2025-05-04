@@ -1,7 +1,8 @@
 async function solarFetch(
   latitude = 57.0,
   longitude = 11.0,
-  area = 5.0
+  area = 5.0,
+  efficiency = 0.2
 ): Promise<number | undefined> {
   //Get the date
   const date = new Date();
@@ -19,7 +20,7 @@ async function solarFetch(
 
     //calculate with the data
     const asi = avgSolarIrradiance(res);
-    const ep = solarPanelElectricityProduction(asi, area, 0.2);
+    const ep = solarPanelElectricityProduction(asi, area, efficiency);
 
     console.log(
       "solar irradiance per day " + asi.toFixed(4) + " kWh/m^2.",

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useCoordinates } from "../context/CoordinatesContext";
+import { useEfficiency } from "../context/EfficiencyContext";
 import { useArea } from "../context/AreaContext";
 import LocationSelector from "../components/LocationComponents/LocationSelector";
 import AreaInput from "../components/AreaInput";
@@ -11,6 +12,7 @@ const Calculator: React.FC = () => {
   const navigate = useNavigate();
   const { coordinates } = useCoordinates();
   const { area } = useArea();
+  const { efficiency } = useEfficiency();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculation: () => Promise<void> = async () => {
@@ -22,7 +24,8 @@ const Calculator: React.FC = () => {
     const resultDescription = await resultCalculator(
       coordinates.lat,
       coordinates.lng,
-      area
+      area,
+      efficiency ?? 0.2
     );
     setIsLoading(false);
     // Redirect to the Results page and pass the result as state
