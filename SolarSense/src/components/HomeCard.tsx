@@ -4,7 +4,7 @@ import Card from "./Card";
 function HomeCard() {
   return (
     <Card
-      image="/src/assets/SolarPanels.jpg"
+      image="/src/assets/solarpanels.jpg"
       title="SolarSense"
       text="Welcome to SolarSense. This is a project to help further information about the financial and environmental benefits of solar power.
 This website enables you to explore how your personal benefits from Solar Panels would look like. Do this by using our Solar Calculator.
