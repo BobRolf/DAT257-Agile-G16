@@ -21,15 +21,28 @@ const Calculator: React.FC = () => {
       return;
     }
     setIsLoading(true);
-    const resultDescription = await resultCalculator(
-      coordinates.lat,
-      coordinates.lng,
-      area,
-      efficiency ?? 0.2
-    );
+
+    // Perform the calculation and get the results
+    const { zone, price, givenArea, effectPerDay, savedPerYear } =
+      await resultCalculator(
+        coordinates.lat,
+        coordinates.lng,
+        area,
+        efficiency ?? 0.2
+      );
+
     setIsLoading(false);
-    // Redirect to the Results page and pass the result as state
-    navigate("/results", { state: { result: resultDescription } });
+
+    // Redirect to the Results page and pass the results as separate variables
+    navigate("/results", {
+      state: {
+        zone,
+        price,
+        givenArea,
+        effectPerDay,
+        savedPerYear,
+      },
+    });
   };
 
   return (
