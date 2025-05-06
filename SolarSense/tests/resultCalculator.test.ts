@@ -15,6 +15,18 @@ vi.mock("../src/utility/solarFetch", () => ({
   default: vi.fn(() => Promise.resolve(15)),
 }));
 
+// Mock SolarSavings.json
+vi.mock("../src/assets/SolarSavings.json", () => ({
+  default: {
+    ElectricityCost: 0.49,
+    ElectrcityCertificate: 0.02,
+    YearlyCharge: 0,
+    ElectrcityTransfer: 0.305,
+    ElectrcityTax: 0.445,
+    SubscribtionFee: 0,
+  },
+}));
+
 // Mock the fetch function globally
 declare const global: any;
 global.fetch = vi.fn(async (url) => {
@@ -46,15 +58,20 @@ global.fetch = vi.fn(async (url) => {
 });
 
 describe("resultCalculator", () => {
-  it("returns correct result string with mocked dependencies", async () => {
-    const result = await resultCalculator(59.3, 18.0, 20);
+  it("returns correct results", async () => {
+    const result = await resultCalculator(59.3, 18.0, 20, 0.2);
 
-    expect(result).toContain("Coordinates: 59.3, 18");
-    expect(result).toContain("Area: 20");
-    expect(result).toContain("Result: 15 avg. kWh/day");
-    expect(result).toContain("Electrical price area: S1");
+    // Calculate the total SolarSavings
+    const solarSavingsTotal = 0.49 + 0.02 + 0.305 + 0.445;
 
-    // (15 kWh/day) * 365 * (0.9 SEK/kWh) = 4927.5
-    expect(result).toContain("Avg money saved per year: 4927.5");
+    // Expected savedPerYear calculation:
+    // (15 kWh/day) * 365 * (0.9 SEK/kWh + solarSavingsTotal)
+    const expectedSavedPerYear = 15 * 365 * (0.9 + solarSavingsTotal);
+
+    expect(result.zone).toBe("S1");
+    expect(result.price).toBe(0.9);
+    expect(result.givenArea).toBe(20);
+    expect(result.effectPerDay).toBe(15);
+    expect(result.savedPerYear).toBeCloseTo(expectedSavedPerYear, 2); // Allow small floating-point differences
   });
 });
