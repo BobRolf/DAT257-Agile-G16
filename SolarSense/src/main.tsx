@@ -7,16 +7,19 @@ import App from "./App.tsx";
 import { CoordinatesProvider } from "./context/CoordinatesContext.tsx";
 import { AreaProvider } from "./context/AreaContext.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
+import { EfficiencyProvider } from "./context/EfficiencyContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <CoordinatesProvider>
       <AreaProvider>
-        <ThemeProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ThemeProvider>
+        <EfficiencyProvider>
+          <ThemeProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ThemeProvider>
+        </EfficiencyProvider>
       </AreaProvider>
     </CoordinatesProvider>
   </StrictMode>

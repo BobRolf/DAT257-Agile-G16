@@ -11,13 +11,15 @@ function Settings() {
         <SettingsCard>
           <div
             className="d-flex justify-content-left align-items-left"
-            style={{ marginLeft: "1rem" }}
+            style={{ marginLeft: "1rem", marginBottom: "1rem" }}
           >
             <Switch
               onChange={toggleTheme}
               checked={isDark}
               onColor="#000"
               offColor="#ddd"
+              uncheckedIcon={false}
+              checkedIcon={false}
             />
             <label>
               <span style={{ marginRight: "1rem" }}>

@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useCoordinates } from "../context/CoordinatesContext";
+import { useEfficiency } from "../context/EfficiencyContext";
 import { useArea } from "../context/AreaContext";
 import LocationSelector from "../components/LocationComponents/LocationSelector";
-import AreaInput from "../components/LocationComponents/AreaInput";
+import AreaInput from "../components/AreaInput";
 import resultCalculator from "../utility/resultCalculator";
+import EfficiencyInput from "../components/EfficiencyInput";
 
 const Calculator: React.FC = () => {
   const navigate = useNavigate();
   const { coordinates } = useCoordinates();
   const { area } = useArea();
+  const { efficiency } = useEfficiency();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculation: () => Promise<void> = async () => {
@@ -18,14 +21,28 @@ const Calculator: React.FC = () => {
       return;
     }
     setIsLoading(true);
-    const resultDescription = await resultCalculator(
-      coordinates.lat,
-      coordinates.lng,
-      area
-    );
+
+    // Perform the calculation and get the results
+    const { zone, price, givenArea, effectPerDay, savedPerYear } =
+      await resultCalculator(
+        coordinates.lat,
+        coordinates.lng,
+        area,
+        efficiency ?? 0.2
+      );
+
     setIsLoading(false);
-    // Redirect to the Results page and pass the result as state
-    navigate("/results", { state: { result: resultDescription } });
+
+    // Redirect to the Results page and pass the results as separate variables
+    navigate("/results", {
+      state: {
+        zone,
+        price,
+        givenArea,
+        effectPerDay,
+        savedPerYear,
+      },
+    });
   };
 
   return (
@@ -59,6 +76,15 @@ const Calculator: React.FC = () => {
                 like to install:
               </p>
               <AreaInput />
+            </div>
+
+            <div className="card p-4">
+              <h5 className="card-title mb-3">Solar Panel Efficiency</h5>
+              <p>
+                Please insert the efficiency of your solar panels, leave blank
+                for default of 0.2:
+              </p>
+              <EfficiencyInput />
             </div>
 
             {/* Button + Loading Bar grouped together */}

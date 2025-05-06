@@ -6,7 +6,7 @@ import SecondResultCard from "../components/ResultCards/SecondResultCard";
 const Results: React.FC = () => {
   const [currentCard, setCurrentCard] = useState(1);
   const location = useLocation();
-  const { result } = location.state || { result: "No result available" }; // Fallback if no result is passed
+  const { zone, price, givenArea, effectPerDay, savedPerYear } = location.state;
 
   const handleNext = () => {
     setCurrentCard((prevCard) => prevCard + 1); // Increment the card index
@@ -19,9 +19,16 @@ const Results: React.FC = () => {
   return (
     <div>
       <h1>Results</h1>
-      <p>This is the Results page.</p>
       <div className="container mt-5 d-flex justify-content-center">
-        {currentCard === 1 && <FirstResultCard result={result} />}
+        {currentCard === 1 && (
+          <FirstResultCard
+            zone={zone}
+            price={price}
+            givenArea={givenArea}
+            effectPerDay={effectPerDay}
+            savedPerYear={savedPerYear}
+          />
+        )}
         {currentCard === 2 && <SecondResultCard />}
       </div>
       <div className="mt-3 d-flex justify-content-center">
