@@ -18,7 +18,6 @@ async function dailyAverage(
   if (prices.length === 0) return undefined;
 
   const dailyAverage = prices.reduce((sum, p) => sum + p, 0) / prices.length;
-  console.log(dailyAverage, date);
   return dailyAverage;
 }
 
@@ -52,33 +51,9 @@ export async function averagePrice(area: string): Promise<number | null> {
     (r): r is number => r !== undefined
   );
 
+  const total = results.reduce((sum, value) => sum + value, 0);
+
   if (results.length === 0) return null;
-
-  // Group results by month
-  const monthlyData: Record<string, number[]> = {};
-  dates.forEach((date, index) => {
-    const yearMonth = `${date.getFullYear()}-${String(
-      date.getMonth() + 1
-    ).padStart(2, "0")}`;
-    if (!monthlyData[yearMonth]) {
-      monthlyData[yearMonth] = [];
-    }
-    if (results[index] !== undefined) {
-      monthlyData[yearMonth].push(results[index]);
-    }
-  });
-
-  // Calculate the average for each month and log it
-  console.log("Average price per month:");
-  for (const [month, prices] of Object.entries(monthlyData)) {
-    const total = prices.reduce((sum, price) => sum + price, 0);
-    const average = total / prices.length;
-    console.log(`${month}: ${average.toFixed(2)} SEK/kWh`);
-  }
-
-  const total = results.reduce((sum, val) => sum + val, 0);
-  console.log("Total:", total);
-  console.log("Number of valid results:", results.length);
 
   return total / results.length;
 }

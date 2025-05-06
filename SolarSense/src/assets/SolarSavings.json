@@ -1,0 +1,9 @@
+{
+  "ElectricityCost": 0.49,
+  "ElectrcityCertificate": 0.02,
+  "YearlyCharge": 0,
+  "ElectrcityTransfer": 0.305,
+  "ElectrcityTax": 0.445,
+  "SubscribtionFee": 0,
+  "_comment": "Savings per kWh in SEK when using your own solar energy. Data form solcellskollen.se"
+}
