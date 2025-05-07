@@ -8,6 +8,7 @@ import { CoordinatesProvider } from "./context/CoordinatesContext.tsx";
 import { AreaProvider } from "./context/AreaContext.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import { EfficiencyProvider } from "./context/EfficiencyContext.tsx";
+import { AdvancedModeProvider } from "./context/AdvancedModeContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -15,9 +16,11 @@ createRoot(document.getElementById("root")!).render(
       <AreaProvider>
         <EfficiencyProvider>
           <ThemeProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <AdvancedModeProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </AdvancedModeProvider>
           </ThemeProvider>
         </EfficiencyProvider>
       </AreaProvider>
