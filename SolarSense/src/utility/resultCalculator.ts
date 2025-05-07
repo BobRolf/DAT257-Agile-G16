@@ -31,7 +31,6 @@ async function resultCalculator(
   const givenArea = area ?? 0;
   const effectPerDay = await solarFetch(lat, lng, area, efficiency);
   const electricityUsagePerYear = electricityUsage * 12; // Monthly usage to yearly
-  
 
   const solarSavingsTotal = Object.values(SolarSavings).reduce((sum, value) => {
     return typeof value === "number" ? sum + value : sum + 0;
@@ -39,16 +38,21 @@ async function resultCalculator(
   const solarSalesTotal = Object.values(SolarSales).reduce((sum, value) => {
     return typeof value === "number" ? sum + value : sum + 0;
   }, 0);
-  const savedPerYear =
-    (effectPerDay ?? 0) * 365 * ((price ?? 0) + solarSavingsTotal);
+
   const amountGainedTotal = (effectPerDay ?? 0) * 365;
-  const amountUsedPerYear = Math.min(electricityUsagePerYear, (effectPerDay ?? 0) * 365);
-  const amountNotUsedPerYear = Math.max(0,((effectPerDay ?? 0) * 365) - electricityUsagePerYear);
+  const amountUsedPerYear = Math.min(
+    electricityUsagePerYear,
+    (effectPerDay ?? 0) * 365
+  );
+  const amountNotUsedPerYear = Math.max(
+    0,
+    (effectPerDay ?? 0) - electricityUsagePerYear
+  );
+  const savedPerYear =
+    (amountUsedPerYear ?? 0) * ((price ?? 0) + solarSavingsTotal);
   const salesPerYear = amountNotUsedPerYear * ((price ?? 0) + solarSalesTotal);
   const electricityTotalCost = electricityUsagePerYear * (price ?? 0);
   const electricityTotalSavings = savedPerYear + salesPerYear;
-  
-
 
   return {
     zone,
