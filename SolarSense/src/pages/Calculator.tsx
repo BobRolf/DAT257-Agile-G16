@@ -3,16 +3,19 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useCoordinates } from "../context/CoordinatesContext";
 import { useEfficiency } from "../context/EfficiencyContext";
 import { useArea } from "../context/AreaContext";
+import { useElectricityUsage } from "../context/ElectricityUsageContext"; // Assuming you have a context for electricity usage
 import LocationSelector from "../components/LocationComponents/LocationSelector";
-import AreaInput from "../components/AreaInput";
+import AreaInput from "../components/Inputs/AreaInput";
 import resultCalculator from "../utility/resultCalculator";
-import EfficiencyInput from "../components/EfficiencyInput";
+import EfficiencyInput from "../components/Inputs/EfficiencyInput";
+import ElectricityUsageInput from "../components/Inputs/ElectricityUsageInput"; // Assuming you have a component for electricity usage input
 
 const Calculator: React.FC = () => {
   const navigate = useNavigate();
   const { coordinates } = useCoordinates();
   const { area } = useArea();
   const { efficiency } = useEfficiency();
+  const { electricityUsage } = useElectricityUsage(); // Assuming you have a context for electricity usage
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculation: () => Promise<void> = async () => {
@@ -23,13 +26,21 @@ const Calculator: React.FC = () => {
     setIsLoading(true);
 
     // Perform the calculation and get the results
-    const { zone, price, givenArea, effectPerDay, savedPerYear } =
-      await resultCalculator(
-        coordinates.lat,
-        coordinates.lng,
-        area,
-        efficiency ?? 0.2
-      );
+    const {
+      zone,
+      price,
+      givenArea,
+      effectPerDay,
+      savedPerYear,
+      electricityUsagePerYear,
+      savedPerYearWithUsage,
+    } = await resultCalculator(
+      coordinates.lat,
+      coordinates.lng,
+      area,
+      efficiency ?? 0.2,
+      electricityUsage ?? 1667
+    );
 
     setIsLoading(false);
 
@@ -41,6 +52,8 @@ const Calculator: React.FC = () => {
         givenArea,
         effectPerDay,
         savedPerYear,
+        electricityUsagePerYear,
+        savedPerYearWithUsage,
       },
     });
   };
@@ -85,6 +98,16 @@ const Calculator: React.FC = () => {
                 for default of 0.2:
               </p>
               <EfficiencyInput />
+            </div>
+
+            <div className="card p-4">
+              <h5 className="card-title mb-3">Current Electrical Usages</h5>
+              <p>
+                Please insert how much electricity you spend per month in kWh,
+                leave blank for default of 1667 kWh (average for a Swedish
+                household):
+              </p>
+              <ElectricityUsageInput />
             </div>
 
             {/* Button + Loading Bar grouped together */}

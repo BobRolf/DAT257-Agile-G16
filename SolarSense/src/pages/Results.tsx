@@ -6,7 +6,15 @@ import SecondResultCard from "../components/ResultCards/SecondResultCard";
 const Results: React.FC = () => {
   const [currentCard, setCurrentCard] = useState(1);
   const location = useLocation();
-  const { zone, price, givenArea, effectPerDay, savedPerYear } = location.state;
+  const {
+    zone,
+    price,
+    givenArea,
+    effectPerDay,
+    savedPerYear,
+    electricityUsagePerYear,
+    savedPerYearWithUsage,
+  } = location.state;
 
   const handleNext = () => {
     setCurrentCard((prevCard) => prevCard + 1); // Increment the card index
@@ -27,6 +35,8 @@ const Results: React.FC = () => {
             givenArea={givenArea}
             effectPerDay={effectPerDay}
             savedPerYear={savedPerYear}
+            electricityUsagePerYear={electricityUsagePerYear}
+            savedPerYearWithUsage={savedPerYearWithUsage}
           />
         )}
         {currentCard === 2 && <SecondResultCard />}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useEfficiency } from "../context/EfficiencyContext";
+import { useEfficiency } from "../../context/EfficiencyContext";
 
 function EfficiencyInput() {
   const { setEfficiency } = useEfficiency();
