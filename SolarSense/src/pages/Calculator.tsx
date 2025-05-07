@@ -47,7 +47,7 @@ const Calculator: React.FC = () => {
 
   return (
     <>
-      <div className="card py-1 px-3">
+      <div className="py-1 px-3">
         <h1 className="mb-1">Calculator</h1>
         <p className="mb-2">
           Using this calculator you can find out how much energy your solar
