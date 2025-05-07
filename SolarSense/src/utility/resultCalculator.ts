@@ -2,6 +2,7 @@ import priceZoneMapper from "./priceZoneMapper";
 import averagePrice from "./averagePrice";
 import solarFetch from "./solarFetch";
 import SolarSavings from "../assets/SolarSavings.json";
+import SolarSales from "../assets/SolarSales.json";
 
 interface ResultCalculatorOutput {
   zone: string | null; // Electrical price area
@@ -10,7 +11,12 @@ interface ResultCalculatorOutput {
   effectPerDay: number; // Average kWh/day
   savedPerYear: number; // Money saved per year
   electricityUsagePerYear: number; // Yearly electricity usage in kWh
-  savedPerYearWithUsage: number; // Money saved per year after electricity usage
+  salesPerYear: number; // Money earned from selling excess energy
+  amountNotUsedPerYear: number; // Amount of energy not used per year
+  amountUsedPerYear: number; // Amount of energy used per year
+  amountGainedTotal: number; // Total amount gained from solar energy
+  electricityTotalCost: number; // Total cost of electricity per year
+  electricityTotalSavings: number; // Total savings from solar energy per year
 }
 
 async function resultCalculator(
@@ -25,12 +31,24 @@ async function resultCalculator(
   const givenArea = area ?? 0;
   const effectPerDay = await solarFetch(lat, lng, area, efficiency);
   const electricityUsagePerYear = electricityUsage * 12; // Monthly usage to yearly
+  
+
   const solarSavingsTotal = Object.values(SolarSavings).reduce((sum, value) => {
+    return typeof value === "number" ? sum + value : sum + 0;
+  }, 0);
+  const solarSalesTotal = Object.values(SolarSales).reduce((sum, value) => {
     return typeof value === "number" ? sum + value : sum + 0;
   }, 0);
   const savedPerYear =
     (effectPerDay ?? 0) * 365 * ((price ?? 0) + solarSavingsTotal);
-  const savedPerYearWithUsage = savedPerYear - electricityUsagePerYear * (price ?? 0);
+  const amountGainedTotal = (effectPerDay ?? 0) * 365;
+  const amountUsedPerYear = Math.min(electricityUsagePerYear, (effectPerDay ?? 0) * 365);
+  const amountNotUsedPerYear = Math.max(0,((effectPerDay ?? 0) * 365) - electricityUsagePerYear);
+  const salesPerYear = amountNotUsedPerYear * ((price ?? 0) + solarSalesTotal);
+  const electricityTotalCost = electricityUsagePerYear * (price ?? 0);
+  const electricityTotalSavings = savedPerYear + salesPerYear;
+  
+
 
   return {
     zone,
@@ -38,8 +56,13 @@ async function resultCalculator(
     givenArea: givenArea,
     effectPerDay: effectPerDay ?? 0,
     savedPerYear: savedPerYear ?? 0,
-    electricityUsagePerYear: electricityUsagePerYear,
-    savedPerYearWithUsage: savedPerYearWithUsage ?? 0,
+    electricityUsagePerYear: electricityUsagePerYear ?? 0,
+    salesPerYear: salesPerYear ?? 0,
+    amountNotUsedPerYear: amountNotUsedPerYear ?? 0,
+    amountUsedPerYear: amountUsedPerYear ?? 0,
+    amountGainedTotal: amountGainedTotal ?? 0,
+    electricityTotalCost: electricityTotalCost ?? 0,
+    electricityTotalSavings: electricityTotalSavings ?? 0,
   };
 }
 

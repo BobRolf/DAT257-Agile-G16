@@ -33,7 +33,12 @@ const Calculator: React.FC = () => {
       effectPerDay,
       savedPerYear,
       electricityUsagePerYear,
-      savedPerYearWithUsage,
+      salesPerYear,
+      amountNotUsedPerYear,
+      amountUsedPerYear,
+      amountGainedTotal,
+      electricityTotalCost,
+      electricityTotalSavings,
     } = await resultCalculator(
       coordinates.lat,
       coordinates.lng,
@@ -53,7 +58,12 @@ const Calculator: React.FC = () => {
         effectPerDay,
         savedPerYear,
         electricityUsagePerYear,
-        savedPerYearWithUsage,
+        salesPerYear,
+        amountNotUsedPerYear,
+        amountUsedPerYear,
+        amountGainedTotal,
+        electricityTotalCost,
+        electricityTotalSavings,
       },
     });
   };

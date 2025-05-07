@@ -13,7 +13,12 @@ const Results: React.FC = () => {
     effectPerDay,
     savedPerYear,
     electricityUsagePerYear,
-    savedPerYearWithUsage,
+    salesPerYear,
+    amountNotUsedPerYear,
+    amountUsedPerYear,
+    amountGainedTotal,
+    electricityTotalCost,
+    electricityTotalSavings,
   } = location.state;
 
   const handleNext = () => {
@@ -36,7 +41,12 @@ const Results: React.FC = () => {
             effectPerDay={effectPerDay}
             savedPerYear={savedPerYear}
             electricityUsagePerYear={electricityUsagePerYear}
-            savedPerYearWithUsage={savedPerYearWithUsage}
+            salesPerYear={salesPerYear}
+            amountNotUsedPerYear={amountNotUsedPerYear}
+            amountUsedPerYear={amountUsedPerYear}
+            amountGainedTotal={amountGainedTotal}
+            electricityTotalCost={electricityTotalCost}
+            electricityTotalSavings={electricityTotalSavings}
           />
         )}
         {currentCard === 2 && <SecondResultCard />}
