@@ -13,3 +13,11 @@ Gustav Hartwig
 # Project Scope
 
 A webapp which is made to give information regarding the efficeny and costeffectiveness targeted for the common man. 
+
+# Data
+
+Data on saved money on fees by using your own solar energy is from Solcellskollen.se
+
+Data on the price of electricity is from elprisetjustnu.se
+
+Data on solar irradiance is from NASA.

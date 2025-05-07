@@ -1,6 +1,7 @@
 import priceZoneMapper from "./priceZoneMapper";
 import averagePrice from "./averagePrice";
 import solarFetch from "./solarFetch";
+import SolarSavings from "../assets/SolarSavings.json";
 
 interface ResultCalculatorOutput {
   zone: string | null; // Electrical price area
@@ -23,8 +24,12 @@ async function resultCalculator(
   const price = await averagePrice(zone ?? "S3");
   const givenArea = area ?? 0;
   const effectPerDay = await solarFetch(lat, lng, area, efficiency);
-  const savedPerYear = (effectPerDay ?? 0) * 365 * (price ?? 0);
   const electricityUsagePerYear = electricityUsage * 12; // Monthly usage to yearly
+  const solarSavingsTotal = Object.values(SolarSavings).reduce((sum, value) => {
+    return typeof value === "number" ? sum + value : sum + 0;
+  }, 0);
+  const savedPerYear =
+    (effectPerDay ?? 0) * 365 * ((price ?? 0) + solarSavingsTotal);
   const savedPerYearWithUsage = savedPerYear - electricityUsagePerYear * (price ?? 0);
 
   return {
