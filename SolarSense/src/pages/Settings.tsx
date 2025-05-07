@@ -1,4 +1,4 @@
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../context/useTheme";
 import SettingsCard from "../components/SettingsCard";
 import Switch from "react-switch";
 
@@ -20,7 +20,7 @@ function Settings() {
               offColor="#ddd"
               uncheckedIcon={false}
               checkedIcon={false}
-            />
+           />
             <label>
               <span style={{ marginRight: "1rem" }}>
                 {isDark ? "Dark Mode" : "Light Mode"}
