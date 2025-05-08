@@ -1,5 +1,3 @@
-import { get } from "http";
-
 // Retrieve a JSON file from elprisetjustnu API with hourly recordings from a set date and electrical price area, calculate the average price over 24h
 async function dailyAverage(
   area: string,
