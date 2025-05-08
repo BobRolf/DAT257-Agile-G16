@@ -8,7 +8,20 @@ const Results: React.FC = () => {
   const [currentCard, setCurrentCard] = useState(1);
   const [previousCard, setPreviousCard] = useState<number | null>(null); // Track the previous card
   const location = useLocation();
-  const { zone, price, givenArea, effectPerDay, savedPerYear } = location.state;
+  const {
+    zone,
+    price,
+    givenArea,
+    effectPerDay,
+    savedPerYear,
+    electricityUsagePerYear,
+    salesPerYear,
+    amountNotUsedPerYear,
+    amountUsedPerYear,
+    amountGainedTotal,
+    electricityTotalCost,
+    electricityTotalSavings,
+  } = location.state;
 
   const handleNext = () => {
     setCurrentCard((prevCard) => prevCard + 1); // Increment the card index
@@ -29,6 +42,13 @@ const Results: React.FC = () => {
             givenArea={givenArea}
             effectPerDay={effectPerDay}
             savedPerYear={savedPerYear}
+            electricityUsagePerYear={electricityUsagePerYear}
+            salesPerYear={salesPerYear}
+            amountNotUsedPerYear={amountNotUsedPerYear}
+            amountUsedPerYear={amountUsedPerYear}
+            amountGainedTotal={amountGainedTotal}
+            electricityTotalCost={electricityTotalCost}
+            electricityTotalSavings={electricityTotalSavings}
           />
         )}
         {currentCard === 2 && <SecondResultCard />}

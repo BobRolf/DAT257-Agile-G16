@@ -8,17 +8,20 @@ import { CoordinatesProvider } from "./context/CoordinatesContext.tsx";
 import { AreaProvider } from "./context/AreaContext.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import { EfficiencyProvider } from "./context/EfficiencyContext.tsx";
+import { ElectricityUsageProvider } from "./context/ElectricityUsageContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <CoordinatesProvider>
       <AreaProvider>
         <EfficiencyProvider>
-          <ThemeProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ThemeProvider>
+          <ElectricityUsageProvider>
+            <ThemeProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </ThemeProvider>
+          </ElectricityUsageProvider>
         </EfficiencyProvider>
       </AreaProvider>
     </CoordinatesProvider>
