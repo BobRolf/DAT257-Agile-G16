@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import FirstResultCard from "../components/ResultCards/FirstResultCard";
 import SecondResultCard from "../components/ResultCards/SecondResultCard";
+import ThirdResultCard from "../components/ResultCards/ThirdResultCard";
+import FourthResultCard from "../components/ResultCards/FourthResultCard"; // Import the new card
 import CalculationInfoCard from "../components/ResultCards/CalculationInfoCard";
 
 const Results: React.FC = () => {
@@ -11,8 +13,10 @@ const Results: React.FC = () => {
   const {
     zone,
     price,
-    givenArea,
+    area,
+    efficiency,
     effectPerDay,
+    carbonSavedPerYear,
     savedPerYear,
     electricityUsagePerYear,
     salesPerYear,
@@ -39,33 +43,46 @@ const Results: React.FC = () => {
           <FirstResultCard
             zone={zone}
             price={price}
-            givenArea={givenArea}
-            effectPerDay={effectPerDay}
-            savedPerYear={savedPerYear}
             electricityUsagePerYear={electricityUsagePerYear}
+            electricityTotalCost={electricityTotalCost}
+          />
+        )}
+        {currentCard === 2 && (
+          <SecondResultCard
+            givenArea={area}
+            givenEfficiency={efficiency}
+            effectPerDay={effectPerDay}
+            amountGainedTotal={amountGainedTotal}
+          />
+        )}
+        {currentCard === 3 && (
+          <ThirdResultCard
+            savedPerYear={savedPerYear}
             salesPerYear={salesPerYear}
             amountNotUsedPerYear={amountNotUsedPerYear}
             amountUsedPerYear={amountUsedPerYear}
-            amountGainedTotal={amountGainedTotal}
-            electricityTotalCost={electricityTotalCost}
             electricityTotalSavings={electricityTotalSavings}
           />
         )}
-        {currentCard === 2 && <SecondResultCard />}
-        {currentCard === 3 && <CalculationInfoCard />}
+        {currentCard === 4 && (
+          <FourthResultCard
+            carbonSavedPerYear={carbonSavedPerYear} // Pass carbon emissions data
+          />
+        )}
+        {currentCard === 0 && <CalculationInfoCard />}
       </div>
       <div className="mt-3 d-flex justify-content-center">
-        {currentCard === 2 && (
+        {currentCard > 1 && (
           <button className="btn btn-primary me-2" onClick={handleBack}>
             Back
           </button>
         )}
-        {currentCard === 1 && (
+        {currentCard < 4 && (
           <button className="btn btn-primary me-2" onClick={handleNext}>
             Next
           </button>
         )}
-        {currentCard === 3 && (
+        {currentCard === 0 && (
           <button
             className="btn btn-primary me-2"
             onClick={() => {
@@ -77,12 +94,12 @@ const Results: React.FC = () => {
             Back
           </button>
         )}
-        {currentCard !== 3 && (
+        {currentCard !== 0 && (
           <button
             className="btn btn-primary me-2"
             onClick={() => {
               setPreviousCard(currentCard); // Update the previous card
-              setCurrentCard(3);
+              setCurrentCard(0);
             }}
           >
             How is this calculated?

@@ -8,10 +8,9 @@ import SolarSales from "../assets/SolarSales.json";
 interface ResultCalculatorOutput {
   zone: string | null; // Electrical price area
   price: number; // Average price in the zone
-  givenArea: number; // Area of solar panels in square meters
   effectPerDay: number; // Average kWh/day
-  savedPerYear: number; // Money saved per year
   carbonSavedPerYear: number; // Carbon saved per year in kg CO2
+  savedPerYear: number; // Money saved per year
   electricityUsagePerYear: number; // Yearly electricity usage in kWh
   salesPerYear: number; // Money earned from selling excess energy
   amountNotUsedPerYear: number; // Amount of energy not used per year
@@ -30,7 +29,6 @@ async function resultCalculator(
 ): Promise<ResultCalculatorOutput> {
   const zone = await priceZoneMapper([lat, lng]);
   const price = await averagePrice(zone ?? "S3");
-  const givenArea = area ?? 0;
   const effectPerDay = await solarFetch(lat, lng, area, efficiency);
   const electricityUsagePerYear = electricityUsage * 12; // Monthly usage to yearly
 
@@ -55,7 +53,7 @@ async function resultCalculator(
   );
   const amountNotUsedPerYear = Math.max(
     0,
-    (effectPerDay ?? 0) - electricityUsagePerYear
+    ((effectPerDay ?? 0) * 365) - electricityUsagePerYear
   );
   const savedPerYear =
     (amountUsedPerYear ?? 0) * ((price ?? 0) + solarSavingsTotal);
@@ -67,7 +65,6 @@ async function resultCalculator(
   return {
     zone,
     price: price ?? 0,
-    givenArea: givenArea,
     effectPerDay: effectPerDay ?? 0,
     carbonSavedPerYear,
     savedPerYear: savedPerYear ?? 0,

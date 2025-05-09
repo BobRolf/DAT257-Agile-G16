@@ -29,8 +29,8 @@ const Calculator: React.FC = () => {
     const {
       zone,
       price,
-      givenArea,
       effectPerDay,
+      carbonSavedPerYear,
       savedPerYear,
       electricityUsagePerYear,
       salesPerYear,
@@ -54,8 +54,10 @@ const Calculator: React.FC = () => {
       state: {
         zone,
         price,
-        givenArea,
+        area,
+        efficiency,
         effectPerDay,
+        carbonSavedPerYear,
         savedPerYear,
         electricityUsagePerYear,
         salesPerYear,
