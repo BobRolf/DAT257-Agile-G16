@@ -77,7 +77,7 @@ const Results: React.FC = () => {
             Back
           </button>
         )}
-        {currentCard < 4 && (
+        {currentCard < 4 && currentCard > 0 && (
           <button className="btn btn-primary me-2" onClick={handleNext}>
             Next
           </button>
