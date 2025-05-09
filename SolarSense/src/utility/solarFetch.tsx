@@ -1,9 +1,12 @@
+import { useAdvancedMode } from "../context/AdvancedModeContext";
+
 async function solarFetch(
   latitude = 57.0,
   longitude = 11.0,
   area = 5.0,
   efficiency = 0.2
 ): Promise<number | undefined> {
+  const { isAdvancedMode, toggleAdvancedMode } = useAdvancedMode();
   //Get the date
   const date = new Date();
   const currentYear = date.getFullYear();
