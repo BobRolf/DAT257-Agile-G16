@@ -9,19 +9,22 @@ import { AreaProvider } from "./context/AreaContext.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import { EfficiencyProvider } from "./context/EfficiencyContext.tsx";
 import { AdvancedModeProvider } from "./context/AdvancedModeContext.tsx";
+import { ElectricityUsageProvider } from "./context/ElectricityUsageContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <CoordinatesProvider>
       <AreaProvider>
         <EfficiencyProvider>
-          <ThemeProvider>
-            <AdvancedModeProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </AdvancedModeProvider>
-          </ThemeProvider>
+          <ElectricityUsageProvider>
+            <ThemeProvider>
+              <AdvancedModeProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </AdvancedModeProvider>
+            </ThemeProvider>
+          </ElectricityUsageProvider>
         </EfficiencyProvider>
       </AreaProvider>
     </CoordinatesProvider>

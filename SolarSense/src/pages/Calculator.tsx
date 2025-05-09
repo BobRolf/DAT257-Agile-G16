@@ -136,15 +136,17 @@ const Calculator: React.FC = () => {
                 <EfficiencyInput />
               </div>
             )}
-            <div className="card p-4">
-              <h5 className="card-title mb-3">Current Electrical Usages</h5>
-              <p>
-                Please insert how much electricity you spend per month in kWh,
-                leave blank for default of 1667 kWh (average for a Swedish
-                household):
-              </p>
-              <ElectricityUsageInput />
-            </div>
+            {isAdvancedMode && (
+              <div className="card p-4">
+                <h5 className="card-title mb-3">Current Electrical Usages</h5>
+                <p>
+                  Please insert how much electricity you spend per month in kWh,
+                  leave blank for default of 1667 kWh (average for a Swedish
+                  household):
+                </p>
+                <ElectricityUsageInput />
+              </div>
+            )}
             {/* Button + Loading Bar grouped together */}
             <div className="d-flex flex-column align-items-center mt-2">
               <button
