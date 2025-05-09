@@ -82,8 +82,8 @@ const Calculator: React.FC = () => {
         <div className="d-flex align-items-center mb-3">
           <p className="mb-0">
             Using this calculator you can find out how much energy your solar
-            panels will produce on average. At the moment, calculating monetary
-            savings is only supported in Sweden.
+            panels will produce on average. At the moment, we only support
+            calculations in Sweden.
           </p>
           <div className="ms-auto d-flex align-items-center">
             <Switch
