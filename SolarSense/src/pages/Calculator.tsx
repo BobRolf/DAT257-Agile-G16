@@ -52,21 +52,31 @@ const Calculator: React.FC = () => {
     <>
       <div className="card py-1 px-3">
         <h1 className="mb-1">Calculator</h1>
-        <label>
-          <p className="mb-2">
+
+        {/* flex container: text on left, switch+label on right */}
+        <div className="d-flex align-items-center mb-3">
+          <p className="mb-0">
             Using this calculator you can find out how much energy your solar
             panels will produce on average. At the moment, calculating monetary
             savings is only supported in Sweden.
           </p>
-          <Switch
-            onChange={toggleAdvancedMode}
-            checked={isAdvancedMode}
-            onColor="#0d6efd"
-            offColor="#ddd"
-            uncheckedIcon={false}
-            checkedIcon={false}
-          />
-        </label>
+          <div className="ms-auto d-flex align-items-center">
+            <Switch
+              onChange={toggleAdvancedMode}
+              checked={isAdvancedMode}
+              onColor="#0d6efd"
+              offColor="#ddd"
+              uncheckedIcon={false}
+              checkedIcon={false}
+            />
+            <span
+              className="ms-2 d-inline-block text-end"
+              style={{ width: "14ch" }}
+            >
+              {isAdvancedMode ? "Advanced Mode" : "Basic Mode"}
+            </span>
+          </div>
+        </div>
 
         <div className="row">
           {/* Location Card */}

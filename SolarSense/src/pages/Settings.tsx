@@ -16,7 +16,7 @@ function Settings() {
             <Switch
               onChange={toggleTheme}
               checked={isDark}
-              onColor="#000"
+              onColor="#0d6efd"
               offColor="#ddd"
               uncheckedIcon={false}
               checkedIcon={false}
