@@ -4,28 +4,33 @@ import Card from "../Card";
 interface FirstResultCardProps {
   zone: string | null;
   price: number;
-  givenArea: number;
-  effectPerDay: number;
-  savedPerYear: number;
+  electricityUsagePerYear: number;
+  electricityTotalCost: number;
 }
+
+//This resultcard displays how much you spend on electricity per year
 
 const FirstResultCard: React.FC<FirstResultCardProps> = ({
   zone,
   price,
-  givenArea,
-  effectPerDay,
-  savedPerYear,
+  electricityUsagePerYear,
+  electricityTotalCost,
 }) => {
   return (
     <Card
       image=""
-      title="First Results"
-      text={`Here are your results:\n\n
-      - Electrical Price Area: ${zone ?? "Unknown"}\n
-      - given area: ${givenArea.toFixed(2) ?? 0}\n
-      - Average Price: ${price.toFixed(2)} SEK/kWh\n
-      - Average Energy Output: ${effectPerDay.toFixed(2)} kWh/day\n
-      - Money Saved Per Year: ${savedPerYear.toFixed(2)} SEK`}
+      title="Your current spendings on electricity"
+      text={`
+        The amount of energy you use per year is around: ${electricityUsagePerYear.toFixed(
+          2
+        )} kWh\n
+        In the price zone ${zone}, the average price of electricity is: ${price.toFixed(
+        2
+      )} SEK/kWh\n
+        This means that you spend around: ${electricityTotalCost.toFixed(
+          2
+        )} SEK per year on electricity\n
+        \n`}
       buttonText="Back to Calculator"
       buttonLink="/calculator"
     />
