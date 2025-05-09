@@ -1,4 +1,4 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, Polygon } from "@react-google-maps/api";
 import { useState, useEffect } from "react";
 import { useCoordinates } from "../../context/CoordinatesContext";
 
@@ -20,24 +20,50 @@ const Bounds = {
 };
 
 const MapComponent = () => {
-  const [marker, setMarkers] = useState<{ lat: number; lng: number } | null>(
+  const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(
     null
+  );
+  const [polygonPaths, setPolygonPaths] = useState<google.maps.LatLngLiteral[]>(
+    []
   );
 
   const { setCoordinates, lastUpdatedBy, coordinates } = useCoordinates();
 
+  // Load Sweden.geojson and set the polygon paths
+  useEffect(() => {
+    const loadGeoJson = async () => {
+      try {
+        const response = await fetch("/src/assets/Sweden.geojson");
+        const geoJson = await response.json();
+
+        // Extract coordinates from GeoJSON and convert to LatLngLiteral[]
+        const paths = geoJson.features[0].geometry.coordinates[0].map(
+          ([lng, lat]: [number, number]) => ({ lat, lng })
+        );
+        setPolygonPaths(paths);
+      } catch (error) {
+        console.error("Failed to load Sweden.geojson:", error);
+      }
+    };
+
+    loadGeoJson();
+  }, []);
+
   // Function to handle map clicks and add a marker
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
-      const newMarker = {
-        lat: lat,
-        lng: lng,
-      };
-      console.log("Marker added at:", event.latLng.lat(), event.latLng.lng()),
-        setMarkers(newMarker);
-      setCoordinates({ lat, lng }, "map");
+      const latLng = event.latLng;
+      const isInsidePolygon = google.maps.geometry.poly.containsLocation(
+        latLng,
+        new google.maps.Polygon({ paths: polygonPaths })
+      );
+
+      if (isInsidePolygon) {
+        setMarker({ lat: latLng.lat(), lng: latLng.lng() });
+        setCoordinates({ lat: latLng.lat(), lng: latLng.lng() }, "map");
+      } else {
+        alert("You can only place markers in Sweden.");
+      }
     }
   };
 
@@ -50,7 +76,7 @@ const MapComponent = () => {
         lat: coordinates.lat,
         lng: coordinates.lng,
       };
-      setMarkers(newMarker);
+      setMarker(newMarker);
     }
   }, [lastUpdatedBy, coordinates]);
 
@@ -58,7 +84,7 @@ const MapComponent = () => {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={startCenter}
-      zoom={4}
+      zoom={6}
       options={{
         disableDefaultUI: true,
         zoomControl: true,
@@ -70,10 +96,19 @@ const MapComponent = () => {
           strictBounds: true,
         },
       }}
-      onClick={handleMapClick} // Add the onClick event to handle map clicks
+      onClick={handleMapClick}
     >
-      {/* Render markers */}
       {marker && <Marker position={marker} />}
+      {polygonPaths.length > 0 && (
+        <Polygon
+          paths={polygonPaths}
+          options={{
+            fillOpacity: 0, // Make the polygon invisible
+            strokeOpacity: 0, // Add a border for visualization
+            clickable: false, // Make the polygon non-interactive
+          }}
+        />
+      )}
     </GoogleMap>
   );
 };
