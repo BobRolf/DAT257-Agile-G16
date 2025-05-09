@@ -1,8 +1,7 @@
-// tests/resultCalculator.test.ts
 import { describe, it, expect, vi } from "vitest";
 import resultCalculator from "../src/utility/resultCalculator";
 
-// Mock the three dependencies
+// Mock dependencies
 vi.mock("../src/utility/priceZoneMapper", () => ({
   default: vi.fn(() => Promise.resolve("S1")),
 }));
@@ -27,51 +26,132 @@ vi.mock("../src/assets/SolarSavings.json", () => ({
   },
 }));
 
-// Mock the fetch function globally
-declare const global: any;
-global.fetch = vi.fn(async (url) => {
-  if (
-    url === "/src/assets/PriceZones.geojson" ||
-    url === "../assets/PriceZones.geojson"
-  ) {
-    return {
-      json: async () => ({
-        features: [
-          {
-            geometry: {
-              coordinates: [
-                [
-                  [0, 0],
-                  [1, 1],
-                  [1, 0],
-                  [0, 0],
-                ],
-              ],
-            },
-            properties: { PriceZone: "S1" },
-          },
-        ],
-      }),
-    };
-  }
-  throw new Error(`Unhandled fetch URL: ${url}`);
-});
+// Mock SolarSales.json
+vi.mock("../src/assets/SolarSales.json", () => ({
+  default: {
+    SalesRevenue: 0.5,
+  },
+}));
+
+// Mock CarbonSavings.json
+vi.mock("../src/assets/CarbonSavings.json", () => ({
+  default: {
+    CarbonOffset: 0.2,
+  },
+}));
 
 describe("resultCalculator", () => {
-  it("returns correct results", async () => {
-    const result = await resultCalculator(59.3, 18.0, 20, 0.2);
+  it("calculates all results correctly for normal inputs", async () => {
+    const lat = 59.3;
+    const lng = 18.0;
+    const area = 20;
+    const efficiency = 0.2;
+    const electricityUsage = 500; // Monthly electricity usage in kWh
 
-    // Calculate the total SolarSavings
-    const solarSavingsTotal = 0.49 + 0.02 + 0.305 + 0.445;
+    const result = await resultCalculator(lat, lng, area, efficiency, electricityUsage);
 
-    // Expected savedPerYear calculation:
-    // (15 kWh/day) * 365 * (0.9 SEK/kWh + solarSavingsTotal)
-    const expectedSavedPerYear = 15 * 365 * (0.9 + solarSavingsTotal);
+    // Calculate expected values
+    const solarSavingsTotal = 0.49 + 0.02 + 0.305 + 0.445; // Sum of SolarSavings
+    const solarSalesTotal = 0.5; // Sales revenue
+    const carbonSavingsTotal = 0.2; // Carbon offset
 
+    const electricityUsagePerYear = electricityUsage * 12; // Convert monthly usage to yearly
+    const effectPerYear = 15 * 365; // Daily effect to yearly
+    const amountUsedPerYear = Math.min(electricityUsagePerYear, effectPerYear);
+    const amountNotUsedPerYear = Math.max(0, effectPerYear - electricityUsagePerYear);
+    const savedPerYear = amountUsedPerYear * (0.9 + solarSavingsTotal);
+    const salesPerYear = amountNotUsedPerYear * (0.9 + solarSalesTotal);
+    const electricityTotalCost = electricityUsagePerYear * 0.9;
+    const electricityTotalSavings = savedPerYear + salesPerYear;
+    const carbonSavedPerYear = effectPerYear * carbonSavingsTotal;
+
+    // Assertions
     expect(result.zone).toBe("S1");
     expect(result.price).toBe(0.9);
-    expect(result.givenArea).toBe(20);
     expect(result.effectPerDay).toBe(15);
-    expect(result.savedPerYear).toBeCloseTo(expectedSavedPerYear, 2); // Allow small floating-point differences
+    expect(result.electricityUsagePerYear).toBe(electricityUsagePerYear);
+    expect(result.amountUsedPerYear).toBe(amountUsedPerYear);
+    expect(result.amountNotUsedPerYear).toBe(amountNotUsedPerYear);
+    expect(result.savedPerYear).toBeCloseTo(savedPerYear, 2);
+    expect(result.salesPerYear).toBeCloseTo(salesPerYear, 2);
+    expect(result.electricityTotalCost).toBeCloseTo(electricityTotalCost, 2);
+    expect(result.electricityTotalSavings).toBeCloseTo(electricityTotalSavings, 2);
+    expect(result.carbonSavedPerYear).toBeCloseTo(carbonSavedPerYear, 2);
+  });
+
+  it("handles zero electricity usage correctly", async () => {
+    const lat = 59.3;
+    const lng = 18.0;
+    const area = 20;
+    const efficiency = 0.2;
+    const electricityUsage = 0; // Zero electricity usage
+
+    const result = await resultCalculator(lat, lng, area, efficiency, electricityUsage);
+
+    // Calculate expected values
+    const solarSavingsTotal = 0.49 + 0.02 + 0.305 + 0.445;
+    const solarSalesTotal = 0.5;
+    const carbonSavingsTotal = 0.2;
+
+    const electricityUsagePerYear = electricityUsage * 12;
+    const effectPerYear = 15 * 365;
+    const amountUsedPerYear = Math.min(electricityUsagePerYear, effectPerYear);
+    const amountNotUsedPerYear = Math.max(0, effectPerYear - electricityUsagePerYear);
+    const savedPerYear = amountUsedPerYear * (0.9 + solarSavingsTotal);
+    const salesPerYear = amountNotUsedPerYear * (0.9 + solarSalesTotal);
+    const electricityTotalCost = electricityUsagePerYear * 0.9;
+    const electricityTotalSavings = savedPerYear + salesPerYear;
+    const carbonSavedPerYear = effectPerYear * carbonSavingsTotal;
+
+    // Assertions
+    expect(result.zone).toBe("S1");
+    expect(result.price).toBe(0.9);
+    expect(result.effectPerDay).toBe(15);
+    expect(result.electricityUsagePerYear).toBe(electricityUsagePerYear);
+    expect(result.amountUsedPerYear).toBe(amountUsedPerYear);
+    expect(result.amountNotUsedPerYear).toBe(amountNotUsedPerYear);
+    expect(result.savedPerYear).toBeCloseTo(savedPerYear, 2);
+    expect(result.salesPerYear).toBeCloseTo(salesPerYear, 2);
+    expect(result.electricityTotalCost).toBeCloseTo(electricityTotalCost, 2);
+    expect(result.electricityTotalSavings).toBeCloseTo(electricityTotalSavings, 2);
+    expect(result.carbonSavedPerYear).toBeCloseTo(carbonSavedPerYear, 2);
+  });
+
+  it("handles high electricity usage correctly", async () => {
+    const lat = 59.3;
+    const lng = 18.0;
+    const area = 20;
+    const efficiency = 0.2;
+    const electricityUsage = 2000; // High electricity usage
+
+    const result = await resultCalculator(lat, lng, area, efficiency, electricityUsage);
+
+    // Calculate expected values
+    const solarSavingsTotal = 0.49 + 0.02 + 0.305 + 0.445;
+    const solarSalesTotal = 0.5;
+    const carbonSavingsTotal = 0.2;
+
+    const electricityUsagePerYear = electricityUsage * 12;
+    const effectPerYear = 15 * 365;
+    const amountUsedPerYear = Math.min(electricityUsagePerYear, effectPerYear);
+    const amountNotUsedPerYear = Math.max(0, effectPerYear - electricityUsagePerYear);
+    const savedPerYear = amountUsedPerYear * (0.9 + solarSavingsTotal);
+    const salesPerYear = amountNotUsedPerYear * (0.9 + solarSalesTotal);
+    const electricityTotalCost = electricityUsagePerYear * 0.9;
+    const electricityTotalSavings = savedPerYear + salesPerYear;
+    const carbonSavedPerYear = effectPerYear * carbonSavingsTotal;
+
+    // Assertions
+    expect(result.zone).toBe("S1");
+    expect(result.price).toBe(0.9);
+    expect(result.effectPerDay).toBe(15);
+    expect(result.electricityUsagePerYear).toBe(electricityUsagePerYear);
+    expect(result.amountUsedPerYear).toBe(amountUsedPerYear);
+    expect(result.amountNotUsedPerYear).toBe(amountNotUsedPerYear);
+    expect(result.savedPerYear).toBeCloseTo(savedPerYear, 2);
+    expect(result.salesPerYear).toBeCloseTo(salesPerYear, 2);
+    expect(result.electricityTotalCost).toBeCloseTo(electricityTotalCost, 2);
+    expect(result.electricityTotalSavings).toBeCloseTo(electricityTotalSavings, 2);
+    expect(result.carbonSavedPerYear).toBeCloseTo(carbonSavedPerYear, 2);
   });
 });
