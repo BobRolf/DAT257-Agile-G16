@@ -1,5 +1,5 @@
 // Retrieve a JSON file from elprisetjustnu API with hourly recordings from a set date and electrical price area, calculate the average price over 24h
-async function dailyAverage(
+export async function dailyAverage(
   area: string,
   date: Date
 ): Promise<number | undefined> {

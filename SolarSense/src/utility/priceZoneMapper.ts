@@ -1,4 +1,4 @@
-type Point = [number, number];
+export type Point = [number, number];
 type Polygon = Point[];
 
 // Determine whether or not a given point is contained within a given polygon
