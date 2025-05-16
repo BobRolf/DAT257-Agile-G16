@@ -12,7 +12,7 @@ const FactsCard: React.FC = () => {
       }}
     >
       <Card
-        image="/src/assets/solar-chart.PNG"
+        image=""
         title="Facts about Solar-panels and environmental impacts"
         text={
           "The idea behind solar power began in 1839 with the discovery of the photovoltaic effect. In 1954, the first efficient solar cell was developed by Bell Labs. Over time, solar technology became more affordable and widespread, especially from the 2000s onward.\n\n" +
